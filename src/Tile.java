@@ -5,10 +5,12 @@ import java.util.Random;
  */
 public class Tile {
     int value;
-    int[] location = new int[2];
+    int xLocation;
+    int yLocation;
 
-    public Tile(int[] location) {
-        this.location = location;
+    public Tile(int xLocation, int yLocation) {
+        this.xLocation = xLocation;
+        this.yLocation = yLocation;
         this.value = newValue();
     }
 
@@ -21,11 +23,12 @@ public class Tile {
     }
 
     public int[] getLocation() {
-        return location;
+        return new int[]{xLocation, yLocation};
     }
 
-    public void setLocation(int[] location) {
-        this.location = location;
+    public void setLocation(int xLocation, int yLocation) {
+        this.xLocation = xLocation;
+        this.yLocation = yLocation;
     }
 
     public int newValue(){
