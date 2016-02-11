@@ -32,6 +32,7 @@ public class Program extends Application{
         window.setScene(scene);
         window.setTitle("2048 | Java");
 
+        window.setResizable(false);
 
         window.show();
 
