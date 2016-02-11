@@ -1,7 +1,10 @@
+import javafx.scene.layout.TilePane;
+
 /**
  * Created by Yeedle on 2/9/2016 10:10 AM.
  */
-public class Board {
+public class Board extends TilePane {
+
 
     private Tile[] tiles = new Tile[16];
     
