@@ -15,7 +15,7 @@ public class Board extends TilePane {
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
 
-    public void Board(){
+    public Board(){
 
         buildGui();
         initializeBoard();

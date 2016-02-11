@@ -20,15 +20,17 @@ public class Program extends Application{
 
         /* The Stage is the window. The Scene is what happens inside the window. The scene has a child node of type Group called root. */
 
+        Board board = new Board();
 
         Group root = new Group(); //root for all the children nodes to be added to the scene
+        root.getChildren().addAll(board);
 
-
-        Scene scene = new Scene(root, 500, 500);
+        final int WIDTH = 503;
+        final int HEIGHT = 503;
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         window.setScene(scene);
         window.setTitle("2048 | Java");
-
 
 
         window.show();
