@@ -1,4 +1,5 @@
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -12,7 +13,7 @@ public class Tile extends StackPane {
     int value;
     int xLocation;
     int yLocation;
-    Rectangle square = new Rectangle(25,25, Paint.valueOf("BLUE"));
+    Rectangle square = new Rectangle(25,25, Color.valueOf("#eee4da"));
     Text valueString = new Text();
 
     public Tile(int xLocation, int yLocation) {
