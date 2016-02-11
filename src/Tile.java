@@ -14,7 +14,9 @@ public class Tile extends StackPane {
     int value;
     int xLocation;
     int yLocation;
-    Rectangle square = new Rectangle(25,25);
+    private final double WIDTH = 106.25;
+    private final double HEIGHT = 106.25;
+    Rectangle square = new Rectangle(WIDTH, HEIGHT);
     Label valueLabel = new Label();
 
     public Tile(int xLocation, int yLocation) {
@@ -22,8 +24,14 @@ public class Tile extends StackPane {
         this.yLocation = yLocation;
         this.value = newValue();
 
-        //building the Tiles graphical components
+        //building the Tile's graphical components
         valueLabel.setText(Integer.toString(this.value));
+        valueLabel.setStyle("-fx-font-size: 55px; " +
+                            "-fx-font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif; " +
+                            "-fx-font-weight: bold;" +
+                            "-fx-text-fill: #776e65;");
+        square.setArcHeight(7);
+        square.setArcWidth(7);
         this.getChildren().addAll(square, valueLabel);
     }
 
