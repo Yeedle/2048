@@ -1,3 +1,4 @@
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -14,7 +15,7 @@ public class Tile extends StackPane {
     int xLocation;
     int yLocation;
     Rectangle square = new Rectangle(25,25);
-    Text valueString = new Text();
+    Label valueLabel = new Label();
 
     public Tile(int xLocation, int yLocation) {
         this.xLocation = xLocation;
@@ -22,8 +23,8 @@ public class Tile extends StackPane {
         this.value = newValue();
 
         //building the Tiles graphical components
-        valueString.setText(Integer.toString(this.value));
-        this.getChildren().addAll(square, valueString);
+        valueLabel.setText(Integer.toString(this.value));
+        this.getChildren().addAll(square, valueLabel);
     }
 
 
