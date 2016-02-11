@@ -12,27 +12,27 @@ public class Board {
 
     
     //the board handles the four basic moves in the game: up, down, left, and right
-    private void moveUp(){
+    private void movedUp(){
         //TODO: handle the up move
         
         //after move is over, generate new tile and place in on board
     }
     
-    private void moveDown(){
+    private void movedDown(){
 
         //TODO: handle the down move
 
         //after move is over, generate new tile and place in on board
     }
     
-    private void moveLeft(){
+    private void movedLeft(){
 
         //TODO: handle the left move
 
         //after move is over, generate new tile and place in on board
     }
     
-    private void moveRight(){
+    private void movedRight(){
 
         //TODO: handle the right move
 
