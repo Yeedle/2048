@@ -14,13 +14,36 @@ public class Board extends TilePane {
 
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
-    public void Board(){
-        this.setHgap(15);
-        this.setVgap(15);
-        this.setPadding(new Insets(15));
-        this.setStyle("-fx-background-color: BBADA0");
 
-        //add 16 empty tiles
+    public void Board(){
+
+        buildGui();
+        initializeBoard();
+    }
+
+    private void buildGui() {
+        setGapsArountTiles(15);
+        setBackgroundColor("BBADA0");
+        addEmptyTiles();
+        setPrefRows(4);
+        setPrefColumns(4);
+    }
+
+
+
+    private void setGapsArountTiles(int i) {
+
+        this.setHgap(i);
+        this.setVgap(i);
+        this.setPadding(new Insets(i));
+
+    }
+
+    private void setBackgroundColor(String hex) {
+        this.setStyle("-fx-background-color:" + hex);
+    }
+
+    private void addEmptyTiles() {
         for (int i=0; i<16; i++)
         {
             Rectangle r = new Rectangle(106.25, 106.25);
@@ -32,13 +55,8 @@ public class Board extends TilePane {
             this.getChildren().add(s);
         }
 
-        this.setPrefRows(4);
-        this.setPrefColumns(4);
-
-        //after everything GUIical has been set up,
-        initializeBoard();
     }
-    
+
     public void initializeBoard() {
         //// TODO: 2/10/2016 handle initalization of baord
         //game starts by creating two tiles and placing them randomly on the board
