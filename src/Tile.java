@@ -13,7 +13,7 @@ public class Tile extends StackPane {
     int value;
     int xLocation;
     int yLocation;
-    Rectangle square = new Rectangle(25,25, Color.valueOf("#eee4da"));
+    Rectangle square = new Rectangle(25,25);
     Text valueString = new Text();
 
     public Tile(int xLocation, int yLocation) {
@@ -47,9 +47,11 @@ public class Tile extends StackPane {
 
     public int newValue(){
         if(Math.random() > .5){
+            square.setFill(Color.valueOf("#eee4da"));
             return 2;
         }
         else{
+            square.setFill(Color.valueOf("#ede0c8"));
             return 4;
         }
     }
