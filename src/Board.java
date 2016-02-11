@@ -44,13 +44,15 @@ public class Board extends TilePane {
     }
 
     private void addEmptyTiles() {
+        final double WIDTH = 106.25;
+        final double HEIGHT = 106.25;
         for (int i=0; i<16; i++)
         {
-            Rectangle r = new Rectangle(106.25, 106.25);
-            r.setFill(Color.valueOf("#eee4da"));
-            r.setOpacity(0.35);
-            r.setArcWidth(7);
-            r.setArcHeight(7);
+            Rectangle r = new Rectangle(WIDTH, HEIGHT);
+            r.setStyle("-fx-fill: #eee4da; " +
+                    "-fx-opacity: 0.35; " +
+                    "-fx-arc-height: 7; " +
+                    "-fx-arc-width: 7;");
             StackPane s = new StackPane(r);
             this.getChildren().add(s);
         }
