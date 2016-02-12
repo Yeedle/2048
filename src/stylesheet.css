@@ -1,0 +1,34 @@
+.board {
+    -fx-background-color: #bbada0;
+    -fx-vgap: 15px;
+    -fx-hgap: 15px;
+    -fx-padding: 15px;
+    -fx-pref-rows: 4;
+    -fx-pref-columns: 4;
+}
+
+.tile-label {
+    -fx-font-size: 55px;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #776e65;
+}
+
+.tile {
+
+    -fx-arc-height: 7px;
+    -fx-arc-width: 7px;
+}
+
+.tile-empty {
+    -fx-fill: #eee4da;
+    -fx-opacity: 0.35;
+}
+
+.tile-2 {
+    -fx-fill: #eee4da;
+}
+
+.tile-4 {
+    -fx-fill: #ede0c8;
+}

@@ -1,11 +1,6 @@
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-
-import java.util.Random;
 
 /**
  * Created by Modi on 2/9/2016.
@@ -26,12 +21,10 @@ public class Tile extends StackPane {
 
         //building the Tile's graphical components
         valueLabel.setText(Integer.toString(this.value));
-        valueLabel.setStyle("-fx-font-size: 55px; " +
-                            "-fx-font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif; " +
-                            "-fx-font-weight: bold;" +
-                            "-fx-text-fill: #776e65;");
-        square.setArcHeight(7);
-        square.setArcWidth(7);
+        valueLabel.getStyleClass().add("tile-label");
+
+        square.getStyleClass().add("tile"); //adss css class
+
         this.getChildren().addAll(square, valueLabel);
     }
 
@@ -55,12 +48,12 @@ public class Tile extends StackPane {
     }
 
     public int newValue(){
-        if(Math.random() > .5){
-            square.setFill(Color.valueOf("#eee4da"));
+        if(Math.random() > 0.9 ){
+            square.getStyleClass().add("tile-2"); //adds a css class to the square
             return 2;
         }
         else{
-            square.setFill(Color.valueOf("#ede0c8"));
+            square.getStyleClass().add("tile-4"); //adds a css class to the square
             return 4;
         }
     }

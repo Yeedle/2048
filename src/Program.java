@@ -30,6 +30,8 @@ public class Program extends Application{
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         window.setScene(scene);
+        scene.getStylesheets().add("stylesheet.css"); //adds the styles in stylesheet.css to game
+
         window.setTitle("2048 | Java");
 
         window.setResizable(false);
