@@ -14,8 +14,8 @@ public class Tile extends StackPane {
     int value;
     int xLocation;
     int yLocation;
-    private final double WIDTH = 106.25;
-    private final double HEIGHT = 106.25;
+    private final double WIDTH = 110.0;
+    private final double HEIGHT = 110.0;
     Rectangle square = new Rectangle(WIDTH, HEIGHT);
     Label valueLabel = new Label();
 

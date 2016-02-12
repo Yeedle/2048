@@ -44,8 +44,8 @@ public class Board extends TilePane {
     }
 
     private void addEmptyTiles() {
-        final double WIDTH = 106.25;
-        final double HEIGHT = 106.25;
+        final double WIDTH = 110.0;
+        final double HEIGHT = 110.0;
         for (int i=0; i<16; i++)
         {
             Rectangle r = new Rectangle(WIDTH, HEIGHT);
