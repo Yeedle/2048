@@ -23,7 +23,7 @@ public class Program extends Application{
 
         Board board = new Board();
 
-
+        
 
         Group root = new Group(); //root for all the children nodes to be added to the scene
         root.getChildren().addAll(board);

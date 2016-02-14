@@ -93,7 +93,7 @@ public class Board extends TilePane {
 
     private void addNewTile() {
         //TODO: logic for addin a new tile randomly on an empty spot on the board, and to call gameover if no empty spot left
-        Tile tile = (Tile)this.getChildren().get(0);
+
 
     }
 
