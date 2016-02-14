@@ -5,13 +5,11 @@ import javafx.scene.shape.Rectangle;
 /**
  * Created by Modi on 2/9/2016.
  */
-public class Tile extends StackPane {
+public class Tile extends AbstractTile {
     int value;
     int xLocation;
     int yLocation;
-    private final double WIDTH = 110.0;
-    private final double HEIGHT = 110.0;
-    Rectangle square = new Rectangle(WIDTH, HEIGHT);
+
     Label valueLabel = new Label();
 
     public Tile(int xLocation, int yLocation) {
