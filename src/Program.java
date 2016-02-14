@@ -24,9 +24,6 @@ public class Program extends Application{
 
         Board board = new Board();
 
-        Node node = board.getChildren().get(0);
-        node.setOnSwipeDown(se -> board.movedUp());
-
         Group root = new Group(); //root for all the children nodes to be added to the scene
         root.getChildren().addAll(board);
 
