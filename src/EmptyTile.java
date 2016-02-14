@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 public class EmptyTile extends AbstractTile {
 
     public EmptyTile() {
+        super();
         square.getStyleClass().add("tile-empty");
     }
 }

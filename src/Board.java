@@ -33,6 +33,7 @@ public class Board extends TilePane {
     }
 
     public void initializeBoard() {
+        //TODO: maybe we can use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
         //game starts by creating two tiles and placing them randomly on the board
         int i = rand.nextInt(16);
         int j = rand.nextInt(16);
