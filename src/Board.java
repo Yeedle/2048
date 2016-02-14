@@ -4,12 +4,14 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Random;
+
 /**
  * Created by Yeedle on 2/9/2016 10:10 AM.
  */
 public class Board extends TilePane {
 
-
+    Random rand = new Random();
     private Tile[] tiles = new Tile[16];
 
     // constructor builds graphical componentes
@@ -31,8 +33,17 @@ public class Board extends TilePane {
     }
 
     public void initializeBoard() {
-        //// TODO: 2/10/2016 handle initalization of baord
         //game starts by creating two tiles and placing them randomly on the board
+        int i = rand.nextInt(16);
+        int j = rand.nextInt(16);
+
+        while (i == j){ //verify that i and j don't have the same value
+            j = rand.nextInt(16);
+        }
+        StackPane sp = (StackPane)(this.getChildren().get(i));
+        sp.getChildren().add(new Tile());
+        sp = (StackPane)(this.getChildren().get(j));
+        sp.getChildren().add(new Tile());
     }
 
     
