@@ -21,7 +21,7 @@ public class Board extends TilePane {
 
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
-    public Board(){
+    public Board() {
         addEmptyTiles();
         this.getStyleClass().add("board");
         initializeBoard();
@@ -29,8 +29,7 @@ public class Board extends TilePane {
 
 
     private void addEmptyTiles() {
-        for (int i=0; i<16; i++)
-        {
+        for (int i = 0; i < 16; i++) {
             this.getChildren().add(new EmptyTile());
         }
 
@@ -38,8 +37,7 @@ public class Board extends TilePane {
 
     public void initializeBoard() {
         //TODO: we should use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
-        for (int i = 0; i < 2; i++)
-        {
+        for (int i = 0; i < 2; i++) {
             addNewTile();
         }
         //game starts by creating two tiles and placing them randomly on the board
@@ -57,9 +55,9 @@ public class Board extends TilePane {
         sp.getChildren().add(new Tile());*/
     }
 
-    
+
     //the board handles the four basic moves in the game: up, down, left, and right
-    protected void movedUp(){
+    protected void movedUp() {
         //TODO: handle the up move
         System.out.println("movedUp");
         //after move is over, generate new tile and place in on board
@@ -67,23 +65,23 @@ public class Board extends TilePane {
     }
 
 
-    protected void movedDown(){
+    protected void movedDown() {
 
         //TODO: handle the down move
         System.out.println("moveddown");
         //after move is over, generate new tile and place in on board
         addNewTile();
     }
-    
-    protected void movedLeft(){
+
+    protected void movedLeft() {
 
         //TODO: handle the left move
 
         //after move is over, generate new tile and place in on board
         addNewTile();
     }
-    
-    protected void movedRight(){
+
+    protected void movedRight() {
 
         //TODO: handle the right move
 
@@ -98,15 +96,18 @@ public class Board extends TilePane {
     }
 
     public void moved(KeyEvent ke) {
-        switch (ke.getCode())
-        {
-            case UP: movedUp();
+        switch (ke.getCode()) {
+            case UP:
+                movedUp();
                 break;
-            case DOWN: movedDown();
+            case DOWN:
+                movedDown();
                 break;
-            case LEFT: movedLeft();
+            case LEFT:
+                movedLeft();
                 break;
-            case RIGHT: movedRight();
+            case RIGHT:
+                movedRight();
                 break;
             default:
                 break;
@@ -114,6 +115,5 @@ public class Board extends TilePane {
     }
 
     //TODO: We need to figure out how to keep track of spaces not occupied by tiles.
-    
-    
+
 }

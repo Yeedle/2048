@@ -7,32 +7,57 @@ import javafx.util.Duration;
  */
 public class TileAnimation {
 
-    private TranslateTransition[] translateTransitions;
-    //TODO: This class should perhaps provide only static methods.
-    /**
-     * Constructor
-     * Takes a list of Tiles and creates a TranslateTransition for each one
-     * @param tiles a variable number of tiles to be animated
-     */
-    public TileAnimation(Tile... tiles)
-    {
-        int numOfTiles = tiles.length; // get the number of tiles passed in
+    private ParallelTransition pt = new ParallelTransition();
 
-        // fill an array with a TranslateTransition for each tile
-        translateTransitions = new TranslateTransition[numOfTiles];
-        for (int i = 0; i < numOfTiles ; i++)
+    /**
+     * moveTile calculates the pixels to be moved, then calls  the addToTransitions method
+     * @param tile
+     * @param numberOfTilesToMove
+     * @param direction
+     */
+    public void moveTile(Tile tile, int numberOfTilesToMove, Direction direction){
+
+        // if it gets moved in the negative direction, we add a negative sign
+        if (direction.equals(Direction.DOWN) || direction.equals(Direction.LEFT))
         {
-            translateTransitions[i] = new TranslateTransition(Duration.millis(200), tiles[i]);
+            numberOfTilesToMove = -numberOfTilesToMove;
         }
+
+        double pixels = calculatePixelsBasedOn(numberOfTilesToMove);
+
+        addToTransitionsList(tile, pixels, direction);
+
+    }
+
+    private double calculatePixelsBasedOn(int numberOfTilesToMove) {
+        return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile
+        //todo figure out how to get the padding between each tile programmatically
     }
 
     /**
-     * creates a parallelTransition for all the TranslateTransitions
+     * Adds the passed tile to the ParallelTransition's list
+     * @param tile
+     * @param pixels
+     * @param direction
+     */
+    private void addToTransitionsList(Tile tile, double pixels, Direction direction) {
+
+        TranslateTransition t = new TranslateTransition(Duration.millis(200), tile);
+        if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN))
+            t.setByY(pixels);
+        else
+            t.setByX(pixels);
+        pt.getChildren().add(t);
+    }
+
+
+    /**
+     * plays the parallelTransition for all the TranslateTransitions accumulated in pt
      */
     public void playAnimations(){
-        ParallelTransition pt = new ParallelTransition(translateTransitions);
 
         pt.play();
+        pt.setOnFinished(e -> pt.getChildren().removeAll());
     }
 
 }
