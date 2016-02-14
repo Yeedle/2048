@@ -7,14 +7,9 @@ import javafx.scene.shape.Rectangle;
  */
 public class Tile extends AbstractTile {
     int value;
-    int xLocation;
-    int yLocation;
-
     Label valueLabel = new Label();
 
-    public Tile(int xLocation, int yLocation) {
-        this.xLocation = xLocation;
-        this.yLocation = yLocation;
+    public Tile() {
         this.value = newValue();
 
         //building the Tile's graphical components
@@ -36,14 +31,6 @@ public class Tile extends AbstractTile {
         this.value = value;
     }
 
-    public int[] getLocation() {
-        return new int[]{xLocation, yLocation};
-    }
-
-    public void setLocation(int xLocation, int yLocation) {
-        this.xLocation = xLocation;
-        this.yLocation = yLocation;
-    }
 
     public int newValue(){
         if(Math.random() > 0.9 ){
