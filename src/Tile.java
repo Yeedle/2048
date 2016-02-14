@@ -16,7 +16,7 @@ public class Tile extends AbstractTile {
         valueLabel.setText(Integer.toString(this.value));
         valueLabel.getStyleClass().add("tile-label");
 
-        square.getStyleClass().add("tile"); //adss css class
+        square.getStyleClass().add("tile"); //adds css class
 
         this.getChildren().addAll(square, valueLabel);
     }
