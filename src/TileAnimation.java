@@ -8,7 +8,12 @@ import javafx.util.Duration;
 public class TileAnimation {
 
     private TranslateTransition[] translateTransitions;
-
+    //TODO: This class should perhaps provide only static methods.
+    /**
+     * Constructor
+     * Takes a list of Tiles and creates a TranslateTransition for each one
+     * @param tiles a variable number of tiles to be animated
+     */
     public TileAnimation(Tile... tiles)
     {
         int numOfTiles = tiles.length; // get the number of tiles passed in
@@ -21,7 +26,9 @@ public class TileAnimation {
         }
     }
 
-
+    /**
+     * creates a parallelTransition for all the TranslateTransitions
+     */
     public void playAnimations(){
         ParallelTransition pt = new ParallelTransition(translateTransitions);
 
