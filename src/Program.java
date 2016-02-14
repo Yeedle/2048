@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -23,7 +24,8 @@ public class Program extends Application{
 
         Board board = new Board();
 
-        
+        Node node = board.getChildren().get(0);
+        node.setOnSwipeDown(se -> board.movedUp());
 
         Group root = new Group(); //root for all the children nodes to be added to the scene
         root.getChildren().addAll(board);
@@ -37,10 +39,10 @@ public class Program extends Application{
 
         scene.setOnKeyPressed(ke -> board.moved(ke));
 
-        scene.setOnSwipeUp(se -> board.movedUp());
-        scene.setOnSwipeDown(se -> board.movedDown());
-        scene.setOnSwipeLeft(se -> board.movedLeft());
-        scene.setOnSwipeRight(se -> board.movedRight());
+        board.setOnSwipeUp(se -> board.movedUp());
+        board.setOnSwipeDown(se -> board.movedDown());
+        board.setOnSwipeLeft(se -> board.movedLeft());
+        board.setOnSwipeRight(se -> board.movedRight());
 
 
         window.setTitle("2048 | Java");
