@@ -1,4 +1,6 @@
 import javafx.geometry.Insets;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -33,7 +35,7 @@ public class Board extends TilePane {
     }
 
     public void initializeBoard() {
-        //TODO: maybe we can use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
+        //TODO: we should use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
         //game starts by creating two tiles and placing them randomly on the board
         int i = rand.nextInt(16);
         int j = rand.nextInt(16);
@@ -51,31 +53,56 @@ public class Board extends TilePane {
 
     
     //the board handles the four basic moves in the game: up, down, left, and right
-    private void movedUp(){
+    protected void movedUp(){
         //TODO: handle the up move
-        
+        System.out.println("movedUp");
         //after move is over, generate new tile and place in on board
+        addNewTile();
     }
-    
-    private void movedDown(){
+
+
+    protected void movedDown(){
 
         //TODO: handle the down move
-
+        System.out.println("moveddown");
         //after move is over, generate new tile and place in on board
+        addNewTile();
     }
     
-    private void movedLeft(){
+    protected void movedLeft(){
 
         //TODO: handle the left move
 
         //after move is over, generate new tile and place in on board
+        addNewTile();
     }
     
-    private void movedRight(){
+    protected void movedRight(){
 
         //TODO: handle the right move
 
         //after move is over, generate new tile and place in on board
+        addNewTile();
+    }
+
+    private void addNewTile() {
+        //TODO: logic for addin a new tile randomly on an empty spot on the board, and to call gameover if no empty spot left
+    }
+
+    public void moved(KeyEvent ke) {
+        switch (ke.getCode())
+        {
+            case UP: movedUp();
+                break;
+            case DOWN: movedDown();
+                break;
+            case LEFT: movedLeft();
+                break;
+            case RIGHT: movedRight();
+                break;
+            default:
+                break;
+        }
     }
 
     //TODO: We need to figure out how to keep track of spaces not occupied by tiles.
