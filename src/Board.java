@@ -1,4 +1,6 @@
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -14,11 +16,11 @@ import java.util.Random;
 public class Board extends TilePane {
 
     Random rand = new Random();
-    private Tile[] tiles = new Tile[16];
+
+    ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
-
     public Board(){
         addEmptyTiles();
         this.getStyleClass().add("board");
@@ -36,8 +38,12 @@ public class Board extends TilePane {
 
     public void initializeBoard() {
         //TODO: we should use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
+        for (int i = 0; i < 2; i++)
+        {
+            addNewTile();
+        }
         //game starts by creating two tiles and placing them randomly on the board
-        int i = rand.nextInt(16);
+       /*int i = rand.nextInt(16);
         int j = rand.nextInt(16);
 
         while (i == j){ //verify that i and j don't have the same value
@@ -48,7 +54,7 @@ public class Board extends TilePane {
         StackPane sp = (StackPane)(this.getChildren().get(i));// returns the EmptyTile, and adds a Tile to it
         sp.getChildren().add(new Tile());
         sp = (StackPane)(this.getChildren().get(j));
-        sp.getChildren().add(new Tile());
+        sp.getChildren().add(new Tile());*/
     }
 
     
@@ -87,6 +93,8 @@ public class Board extends TilePane {
 
     private void addNewTile() {
         //TODO: logic for addin a new tile randomly on an empty spot on the board, and to call gameover if no empty spot left
+        Tile tile = (Tile)this.getChildren().get(0);
+
     }
 
     public void moved(KeyEvent ke) {
