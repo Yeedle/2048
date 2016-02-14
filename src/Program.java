@@ -23,10 +23,6 @@ public class Program extends Application{
 
         Board board = new Board();
 
-        board.setOnSwipeUp(se -> board.movedUp());
-        board.setOnSwipeDown(se -> board.movedDown());
-        board.setOnSwipeLeft(se -> board.movedLeft());
-        board.setOnSwipeRight(se -> board.movedRight());
 
 
         Group root = new Group(); //root for all the children nodes to be added to the scene
@@ -40,6 +36,12 @@ public class Program extends Application{
         scene.getStylesheets().add("stylesheet.css"); //adds the styles in stylesheet.css to game
 
         scene.setOnKeyPressed(ke -> board.moved(ke));
+
+        scene.setOnSwipeUp(se -> board.movedUp());
+        scene.setOnSwipeDown(se -> board.movedDown());
+        scene.setOnSwipeLeft(se -> board.movedLeft());
+        scene.setOnSwipeRight(se -> board.movedRight());
+
 
         window.setTitle("2048 | Java");
 
