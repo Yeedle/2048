@@ -10,15 +10,16 @@ public class Tile extends AbstractTile {
     Label valueLabel = new Label();
 
     public Tile() {
+        super();
         this.value = newValue();
 
         //building the Tile's graphical components
         valueLabel.setText(Integer.toString(this.value));
         valueLabel.getStyleClass().add("tile-label");
 
-        square.getStyleClass().add("tile"); //adds css class
 
-        this.getChildren().addAll(square, valueLabel);
+        this.getChildren().add(valueLabel);
+
     }
 
 
@@ -33,7 +34,7 @@ public class Tile extends AbstractTile {
 
 
     public int newValue(){
-        if(Math.random() > 0.9 ){
+        if(Math.random() < 0.9 ){
             square.getStyleClass().add("tile-2"); //adds a css class to the square
             return 2;
         }

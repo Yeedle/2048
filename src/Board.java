@@ -27,7 +27,7 @@ public class Board extends TilePane {
     private void addEmptyTiles() {
         for (int i=0; i<16; i++)
         {
-            this.getChildren().add(new EmptyTile().sp);
+            this.getChildren().add(new EmptyTile());
         }
 
     }
@@ -40,7 +40,9 @@ public class Board extends TilePane {
         while (i == j){ //verify that i and j don't have the same value
             j = rand.nextInt(16);
         }
-        StackPane sp = (StackPane)(this.getChildren().get(i));
+
+        // following code needs a refactor, perhaps break it up into smaller methods
+        StackPane sp = (StackPane)(this.getChildren().get(i));// returns the EmptyTile, and adds a Tile to it
         sp.getChildren().add(new Tile());
         sp = (StackPane)(this.getChildren().get(j));
         sp.getChildren().add(new Tile());
