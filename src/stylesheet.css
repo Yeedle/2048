@@ -56,24 +56,28 @@
 .tile-128 {
     -fx-fill: #edcf72;
     -fx-text-fill: #f9f6f2;
+    -fx-font-size: 45px;
 }
 
 .tile-256 {
     -fx-fill: #edcc61;
-    -fx-text-fill: #f9f6f2;
+    -fx-font-size: 45px;
 }
 
 .tile-512 {
     -fx-fill: #edc850;
     -fx-text-fill: #f9f6f2;
+    -fx-font-size: 45px;
 }
 
 .tile-1024 {
     -fx-fill: #edc850;
     -fx-text-fill: #f9f6f2;
+    -fx-font-size: 35px;
 }
 
 .tile-2048 {
     -fx-fill: #edc22e;
     -fx-text-fill: #f9f6f2;
+    -fx-font-size: 35px;
 }
