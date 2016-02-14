@@ -23,14 +23,9 @@ public class Board extends TilePane {
 
 
     private void addEmptyTiles() {
-        final double WIDTH = 110.0;
-        final double HEIGHT = 110.0;
         for (int i=0; i<16; i++)
         {
-            Rectangle r = new Rectangle(WIDTH, HEIGHT);
-           r.getStyleClass().addAll("tile", "tile-empty"); //adds a css class to rectangle
-            StackPane s = new StackPane(r);
-            this.getChildren().add(s);
+            this.getChildren().add(new EmptyTile().sp);
         }
 
     }
