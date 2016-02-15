@@ -10,8 +10,8 @@ import javafx.util.Duration;
  */
     public abstract class AbstractTile extends StackPane{
         int value;
-        public static final double WIDTH = 110.0;
-        public static final double HEIGHT = 110.0;
+        protected static final double WIDTH = 110.0;
+        protected static final double HEIGHT = 110.0;
         protected Rectangle square;
         Label valueLabel;
 
