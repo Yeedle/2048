@@ -27,15 +27,5 @@ import javafx.scene.shape.Rectangle;
         this.getChildren().addAll(square);
     }
 
-    protected boolean isNotEmpty(){
-        return !isEmpty();
-    }
 
-    protected boolean isEmpty(){
-        return this instanceof Slot;
-    }
-
-    protected boolean hasValue(){
-        return this instanceof Tile;
-    }
 }
