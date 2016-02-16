@@ -1,8 +1,5 @@
-import javafx.animation.ScaleTransition;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 /**
  * A template for all sorts of Tiles
@@ -35,7 +32,7 @@ import javafx.util.Duration;
     }
 
     protected boolean isEmpty(){
-        return this instanceof EmptyTile;
+        return this instanceof Slot;
     }
 
     protected boolean hasValue(){

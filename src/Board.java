@@ -1,13 +1,8 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
 
@@ -38,7 +33,7 @@ public class Board extends TilePane {
         final int NUM_OF_TILES = 16;
 
         for (int i = 0; i < NUM_OF_TILES; i++) {
-            this.addTile(new EmptyTile());
+            this.addTile(new Slot());
         }
 
     }
@@ -65,7 +60,7 @@ public class Board extends TilePane {
         }
 
         // following code needs a refactor, perhaps break it up into smaller methods
-        StackPane sp = (StackPane)(this.getChildren().get(i));// returns the EmptyTile, and adds a Tile to it
+        StackPane sp = (StackPane)(this.getChildren().get(i));// returns the Slot, and adds a Tile to it
         sp.getChildren().add(new Tile());
         sp = (StackPane)(this.getChildren().get(j));
         sp.getChildren().add(new Tile());*/
@@ -106,43 +101,56 @@ public class Board extends TilePane {
     }
 
     private void addNewTile() {
-        //TODO: logic for addin a new tile randomly on an empty spot on the board, and to call gameover if no empty spot left
-        //algorithm: find all the empty tiles on the board; choose one randomly; add a Tile to it;
-        ObservableList<EmptyTile> emptyTiles = getEmptyTileChildren();
-        Random rand = new Random();
-        EmptyTile et = emptyTiles.get(rand.nextInt(emptyTiles.size()));
-        et.getChildren().add(new Tile());
+        ObservableList<Slot> emptySlots = getEmptySlots();
+        int numOfEmptySlots = emptySlots.size();
 
-
-
-    }
-
-    /**
-     *
-     * @return a list of the EmptyTile children without a Tile in them
-     */
-    private ObservableList<EmptyTile> getEmptyTileChildren() {
-
-
-       ObservableList<EmptyTile> emptyTiles = getTileChildern();
-        for (int i = 0; i < emptyTiles.size(); i++){
-            if (emptyTiles.get(i).containsTile())
-                emptyTiles.remove(i);
+        if (numOfEmptySlots > 0) {
+            Random rand = new Random();
+            int randTile = rand.nextInt(numOfEmptySlots);
+            Slot emptySlot = emptySlots.get(randTile);
+            emptySlot.add(new Tile());
+        } else {
+            gameOver();
         }
-        return emptyTiles;
+
+
+    }
+
+
+    private void gameOver() {
+        //TODO: handle game over
     }
 
     /**
      *
-     * @return all the EmptyTile nodes of the board
+     * @return a list of the Slot children without a Tile in them
      */
-    private ObservableList<EmptyTile> getTileChildern() {
-        ObservableList<EmptyTile> ol = FXCollections.observableArrayList();
+    private ObservableList<Slot> getEmptySlots() {
+
+
+       ObservableList<Slot> allSlots = getAllSlots();
+
+        for (int i = 0; i < allSlots.size(); i++){
+            if (allSlots.get(i).containsTile()){
+                allSlots.remove(i--);
+            }
+
+        }
+
+        return allSlots;
+    }
+
+    /**
+     * Gets all the nodes of the board, selects only the empty slots and returns them as an ObservableList
+     * @return all the Slot nodes of the board
+     */
+    private ObservableList<Slot> getAllSlots() {
+        ObservableList<Slot> allSlots = FXCollections.observableArrayList();
         for (Node node : tiles){
-            if (node instanceof EmptyTile)
-                ol.add((EmptyTile) node);
+            if (node instanceof Slot)
+                allSlots.add((Slot) node);
         }
-        return ol;
+        return allSlots;
     }
 
     public void moved(KeyEvent ke) {
