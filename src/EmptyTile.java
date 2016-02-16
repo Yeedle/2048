@@ -9,4 +9,5 @@ public class EmptyTile extends AbstractTile {
         super();
         square.getStyleClass().add("tile-empty");
     }
+
 }

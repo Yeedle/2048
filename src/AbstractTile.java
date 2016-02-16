@@ -29,4 +29,16 @@ import javafx.util.Duration;
 
         this.getChildren().addAll(square, valueLabel);
     }
+
+    protected boolean isNotEmpty(){
+        return !isEmpty();
+    }
+
+    protected boolean isEmpty(){
+        return this instanceof EmptyTile;
+    }
+
+    protected boolean hasValue(){
+        return this instanceof Tile;
+    }
 }
