@@ -59,6 +59,7 @@ public class Board extends TilePane {
     protected void movedUp() {
         //TODO: handle the up move
         System.out.println("movedUp");
+       // if no move available, do nothing
         //after move is over, generate new tile and place in on board
         addNewTile();
     }
