@@ -46,24 +46,11 @@ public class Board extends TilePane {
     }
 
     public void initializeBoard() {
-        //TODO: we should use the same method that adds new tiles (another 'TODO') to call it twice to initialize the board
+
         for (int i = 0; i < 2; i++) {
             addNewTile();
         }
-        //game starts by creating two tiles and placing them randomly on the board
-       /*Random rand = new Random();
-        int i = rand.nextInt(16);
-        int j = rand.nextInt(16);
 
-        while (i == j){ //verify that i and j don't have the same value
-            j = rand.nextInt(16);
-        }
-
-        // following code needs a refactor, perhaps break it up into smaller methods
-        StackPane sp = (StackPane)(this.getChildren().get(i));// returns the Slot, and adds a Tile to it
-        sp.getChildren().add(new Tile());
-        sp = (StackPane)(this.getChildren().get(j));
-        sp.getChildren().add(new Tile());*/
     }
 
 
@@ -100,7 +87,11 @@ public class Board extends TilePane {
         addNewTile();
     }
 
+    /**
+     * Adds a new tile to the board. If there's no room on the board, checkIfOtherMoveAvailable is called
+     */
     private void addNewTile() {
+
         ObservableList<Slot> emptySlots = getEmptySlots();
         int numOfEmptySlots = emptySlots.size();
 
@@ -110,10 +101,17 @@ public class Board extends TilePane {
             Slot emptySlot = emptySlots.get(randTile);
             emptySlot.add(new Tile());
         } else {
-            gameOver();
+            checkIfOtherMoveAvailable();
         }
 
 
+    }
+
+    /**
+     * checks if there are moves left. If there are none, calls gameOver.
+     */
+    private void checkIfOtherMoveAvailable() {
+        //TODO: calculate if a move is possible, if not, call gameOver();
     }
 
 
