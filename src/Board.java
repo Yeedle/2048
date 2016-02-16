@@ -110,7 +110,7 @@ public class Board extends TilePane {
         //algorithm: find all the empty tiles on the board; choose one randomly; add a Tile to it;
         ObservableList<EmptyTile> emptyTiles = getEmptyTileChildren();
         Random rand = new Random();
-        EmptyTile et = emptyTiles.get(rand.nextInt(16));
+        EmptyTile et = emptyTiles.get(rand.nextInt(emptyTiles.size()));
         et.getChildren().add(new Tile());
 
 
