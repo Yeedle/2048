@@ -46,7 +46,7 @@ public class Board extends TilePane {
     }
 
     public void initializeBoard() {
-        // TODO: 2/16/2016 empty the board, when initalizing after a game over or clicking the new game button
+        // TODO: 2/16/2016 empty the board when initializing after a game over or clicking the new game button
 
         for (int i = 0; i < 2; i++) {
             addNewTile();
@@ -89,19 +89,20 @@ public class Board extends TilePane {
     }
 
     /**
-     * Adds a new tile to the board. If there's no room on the board, checkIfOtherMoveAvailable is called
+     * Adds a new tile to the board. If there's only one slot left, add a tile and checkIfOtherMoveAvailable()
      */
     private void addNewTile() {
 
         ObservableList<Slot> emptySlots = getEmptySlots();
         int numOfEmptySlots = emptySlots.size();
 
-        if (numOfEmptySlots > 0) {
+        if (numOfEmptySlots > 1) {
             Random rand = new Random();
             int randTile = rand.nextInt(numOfEmptySlots);
             Slot emptySlot = emptySlots.get(randTile);
             emptySlot.add(new Tile());
         } else {
+            emptySlots.get(0).add(new Tile());
             checkIfOtherMoveAvailable();
         }
 
