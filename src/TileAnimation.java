@@ -29,7 +29,7 @@ public class TileAnimation {
 
     }
 
-    private double calculatePixelsBasedOn(int numberOfTilesToMove) {
+    protected double calculatePixelsBasedOn(int numberOfTilesToMove) {
         return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile
         //todo figure out how to get the padding between each tile programmatically
     }
