@@ -9,14 +9,19 @@ import javafx.util.Duration;
  */
 public class Tile extends AbstractTile {
 
+    int value;
+    Label valueLabel;
 
     public Tile() {
         super();
+
         this.value = newValue();
+        this.valueLabel = new Label();
 
         //building the Tile's graphical components
-        super.valueLabel.setText(Integer.toString(this.value));
-        super.valueLabel.getStyleClass().add("tile-label");
+        this.getChildren().add(valueLabel);
+        valueLabel.setText(Integer.toString(this.value));
+        valueLabel.getStyleClass().add("tile-label");
 
         animateTileCreation();
 

@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -10,4 +11,12 @@ public class EmptyTile extends AbstractTile {
         square.getStyleClass().add("tile-empty");
     }
 
+
+    public boolean containsTile() {
+        for (Node node : this.getChildren()) {
+            if (node instanceof Tile)
+                return true;
+        }
+        return false;
+    }
 }

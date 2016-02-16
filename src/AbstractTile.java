@@ -9,11 +9,11 @@ import javafx.util.Duration;
  * Created by Modi on 2/13/2016.
  */
     public abstract class AbstractTile extends StackPane{
-        int value;
+
         protected static final double WIDTH = 110.0;
         protected static final double HEIGHT = 110.0;
         protected Rectangle square;
-        Label valueLabel;
+
 
     /**
      * Constructor
@@ -25,9 +25,9 @@ import javafx.util.Duration;
         square = new Rectangle(WIDTH, HEIGHT);
         square.getStyleClass().add("tile");
 
-        valueLabel = new Label();
 
-        this.getChildren().addAll(square, valueLabel);
+
+        this.getChildren().addAll(square);
     }
 
     protected boolean isNotEmpty(){

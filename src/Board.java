@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -15,7 +16,7 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-    Random rand = new Random();
+
 
     ObservableList<Node> tiles = this.getChildren();
 
@@ -25,13 +26,27 @@ public class Board extends TilePane {
         addEmptyTiles();
         this.getStyleClass().add("board");
         initializeBoard();
+
     }
 
 
+    /**
+     * Fills the board with empty tiles
+     */
     private void addEmptyTiles() {
-        for (int i = 0; i < 16; i++) {
-            this.getChildren().add(new EmptyTile());
+
+        final int NUM_OF_TILES = 16;
+
+        for (int i = 0; i < NUM_OF_TILES; i++) {
+            this.addTile(new EmptyTile());
         }
+
+    }
+
+
+    private <T extends AbstractTile> void addTile(T tile){
+
+        this.getChildren().add(tile);
 
     }
 
@@ -41,7 +56,8 @@ public class Board extends TilePane {
             addNewTile();
         }
         //game starts by creating two tiles and placing them randomly on the board
-       /*int i = rand.nextInt(16);
+       /*Random rand = new Random();
+        int i = rand.nextInt(16);
         int j = rand.nextInt(16);
 
         while (i == j){ //verify that i and j don't have the same value
@@ -91,8 +107,42 @@ public class Board extends TilePane {
 
     private void addNewTile() {
         //TODO: logic for addin a new tile randomly on an empty spot on the board, and to call gameover if no empty spot left
+        //algorithm: find all the empty tiles on the board; choose one randomly; add a Tile to it;
+        ObservableList<EmptyTile> emptyTiles = getEmptyTileChildren();
+        Random rand = new Random();
+        EmptyTile et = emptyTiles.get(rand.nextInt(16));
+        et.getChildren().add(new Tile());
 
 
+
+    }
+
+    /**
+     *
+     * @return a list of the EmptyTile children without a Tile in them
+     */
+    private ObservableList<EmptyTile> getEmptyTileChildren() {
+
+
+       ObservableList<EmptyTile> emptyTiles = getTileChildern();
+        for (int i = 0; i < emptyTiles.size(); i++){
+            if (emptyTiles.get(i).containsTile())
+                emptyTiles.remove(i);
+        }
+        return emptyTiles;
+    }
+
+    /**
+     *
+     * @return all the EmptyTile nodes of the board
+     */
+    private ObservableList<EmptyTile> getTileChildern() {
+        ObservableList<EmptyTile> ol = FXCollections.observableArrayList();
+        for (Node node : tiles){
+            if (node instanceof EmptyTile)
+                ol.add((EmptyTile) node);
+        }
+        return ol;
     }
 
     public void moved(KeyEvent ke) {
@@ -113,6 +163,7 @@ public class Board extends TilePane {
                 break;
         }
     }
+
 
     //TODO: We need to figure out how to keep track of spaces not occupied by tiles.
 
