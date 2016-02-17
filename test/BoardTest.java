@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,7 +10,23 @@ import static org.hamcrest.CoreMatchers.*;
 public class BoardTest {
 
     @Test
-    public void testInitializeBoard() throws Exception {
+    public void testInitializeBoardProducesTwoTiles() throws Exception {
+        Board b = new Board();
+        b.initializeBoard();
+
+        int numOfTilesFound = 0;
+        Node node;
+        Slot slot;
+        for (int i = 0; i < b.getChildren().size(); i++){
+            node = b.getChildren().get(i);
+
+            if (node instanceof Slot && ((Slot)node).containsTile())
+            {
+                numOfTilesFound++;
+            }
+
+            assertThat(2, equalTo(numOfTilesFound));
+        }
 
     }
 
