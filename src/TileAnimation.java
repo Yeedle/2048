@@ -61,6 +61,10 @@ public class TileAnimation {
         pt.setOnFinished(e -> pt.getChildren().removeAll());
     }
 
+    /**
+     * Animates the addition of tiles to the board
+     * @param tile to be animated
+     */
     public static void animateTileCreation(Tile tile) {
         ScaleTransition st = new ScaleTransition(Duration.millis(500), tile);
         st.setFromX(.3);

@@ -9,8 +9,8 @@ import javafx.util.Duration;
  */
 public class Tile extends AbstractTile {
 
-    int value;
-    Label valueLabel;
+   private int value;
+    private Label valueLabel;
 
     public Tile() {
         super();
