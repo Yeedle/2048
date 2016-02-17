@@ -23,18 +23,11 @@ public class Tile extends AbstractTile {
         valueLabel.setText(Integer.toString(this.value));
         valueLabel.getStyleClass().add("tile-label");
 
-        animateTileCreation();
+        TileAnimation.animateTileCreation(this);
 
     }
 
-    private void animateTileCreation() {
-        ScaleTransition st = new ScaleTransition(Duration.millis(500), this);
-        st.setFromX(.3);
-        st.setFromY(.3);
-        st.setToX(1);
-        st.setToY(1);
-        st.play();
-    }
+
 
 
     public int getValue() {

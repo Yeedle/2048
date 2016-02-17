@@ -1,4 +1,5 @@
 import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 
@@ -58,6 +59,15 @@ public class TileAnimation {
 
         pt.play();
         pt.setOnFinished(e -> pt.getChildren().removeAll());
+    }
+
+    public static void animateTileCreation(Tile tile) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(500), tile);
+        st.setFromX(.3);
+        st.setFromY(.3);
+        st.setToX(1);
+        st.setToY(1);
+        st.play();
     }
 
 }
