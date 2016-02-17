@@ -26,6 +26,7 @@ public class BoardTest {
             }
 
             assertThat(2, equalTo(numOfTilesFound));
+
         }
 
     }
