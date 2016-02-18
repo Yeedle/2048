@@ -12,7 +12,7 @@ import java.util.Random;
 public class Board extends TilePane {
 
 
-
+    AbstractTile[][] tileArray = new AbstractTile[4][4];
     ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
@@ -38,7 +38,7 @@ public class Board extends TilePane {
 
     }
 
-
+        
     private <T extends AbstractTile> void addTile(T tile){
 
         this.getChildren().add(tile);
