@@ -41,20 +41,15 @@ public class Board extends TilePane {
     // adds all the nodes from the board into a 2D array for easy traversal and comparison
     private void addTilesToArray (){
         for (int i = 0; i < 16; i++) {
-            AbstractTile at = (AbstractTile)(this.getChildren().get(i));
-            if (i < 4){
-                tileArray[0][i] = at;
-            }
-            else if (i < 8){
-                tileArray[1][i - 4] = at;
-            }
-            else if (i < 8){
-                tileArray[2][i - 8] = at;
-            }
-            else{
-                tileArray[3][i - 12] = at;
-            }
+            AbstractTile tile = this.getTile(i);
+            int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
+                tileArray[row][i%4] = tile;
+
         }
+    }
+
+    private AbstractTile getTile(int index){
+            return (AbstractTile)this.getChildren().get(index);
     }
 
     private <T extends AbstractTile> void addTile(T tile){

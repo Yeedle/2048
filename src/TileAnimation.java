@@ -11,7 +11,7 @@ public class TileAnimation {
     private ParallelTransition pt = new ParallelTransition();
 
     /**
-     * moveTile calculates the pixels to be moved, then calls  the addToTransitions method
+     * moveTile calculates the pixels to be moved, then calls the addToTransitions method
      * @param tile
      * @param numberOfTilesToMove
      * @param direction
@@ -36,7 +36,7 @@ public class TileAnimation {
      * @return the amount of pixels to move the tile
      */
     protected double calculatePixelsBasedOn(int numberOfTilesToMove) {
-        return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile
+        return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile (padding + gaps)
         //todo figure out how to get the padding between each tile programmatically
     }
 
