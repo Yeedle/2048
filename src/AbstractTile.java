@@ -21,10 +21,9 @@ import javafx.scene.shape.Rectangle;
     protected AbstractTile(){
         square = new Rectangle(WIDTH, HEIGHT);
         square.getStyleClass().add("tile");
+        
+        this.getChildren().add(square);
 
-
-
-        this.getChildren().addAll(square);
     }
 
 

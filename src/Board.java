@@ -21,6 +21,7 @@ public class Board extends TilePane {
         addEmptyTiles();
         this.getStyleClass().add("board");
         initializeBoard();
+        addTilesToArray();
 
     }
 
@@ -33,7 +34,7 @@ public class Board extends TilePane {
         final int NUM_OF_TILES = 16;
 
         for (int i = 0; i < NUM_OF_TILES; i++) {
-            this.addTile(new Slot());
+            this.addTile(new Tile(0));
         }
 
     }
@@ -44,15 +45,24 @@ public class Board extends TilePane {
             AbstractTile at = (AbstractTile)(this.getChildren().get(i));
             if (i < 4){
                 tileArray[0][i] = at;
+                continue;
             }
-            else if (i < 8){
+            if (i < 8){
                 tileArray[1][i - 4] = at;
+                continue;
             }
-            else if (i < 8){
+            if (i < 12){
                 tileArray[2][i - 8] = at;
+                continue;
             }
-            else{
+            if (i < 16){
                 tileArray[3][i - 12] = at;
+                continue;
+            }
+        }
+        for (AbstractTile[] a: tileArray) {
+            for (AbstractTile b: a) {
+                System.out.println(b.getClass() + "  ");
             }
         }
     }
@@ -112,16 +122,16 @@ public class Board extends TilePane {
      */
     private void addNewTile() {
 
-        ObservableList<Slot> emptySlots = getEmptySlots();
+        ObservableList<Tile> emptySlots = getEmptySlots();
         int numOfEmptySlots = emptySlots.size();
 
         if (numOfEmptySlots > 1) {
             Random rand = new Random();
             int randTile = rand.nextInt(numOfEmptySlots);
-            Slot emptySlot = emptySlots.get(randTile);
-            emptySlot.add(new Tile());
+            Tile emptySlot = emptySlots.get(randTile);
+            emptySlot.newValue();
         } else {
-            emptySlots.get(0).add(new Tile());
+            emptySlots.get(0).newValue();
             checkIfOtherMoveAvailable();
         }
 
@@ -144,7 +154,7 @@ public class Board extends TilePane {
      *
      * @return a list of the Slot children without a Tile in them
      */
-    private ObservableList<Slot> getEmptySlots() {
+   /* private ObservableList<Slot> getEmptySlots() {
 
 
        ObservableList<Slot> allSlots = getAllSlots();
@@ -157,17 +167,40 @@ public class Board extends TilePane {
         }
 
         return allSlots;
+    }*/
+
+    private ObservableList<Tile> getEmptySlots() {
+
+
+        ObservableList<Tile> emptySlots = getAllSlots();
+
+        for (int i = 0; i < emptySlots.size(); i++){
+            if (!(emptySlots.get(i).getValue() == 0)){
+                emptySlots.remove(i--);
+            }
+
+        }
+
+        return emptySlots;
     }
 
     /**
      * Gets all the nodes of the board, selects only the empty slots and returns them as an ObservableList
      * @return all the Slot nodes of the board
      */
-    private ObservableList<Slot> getAllSlots() {
+    /*private ObservableList<Slot> getAllSlots() {
         ObservableList<Slot> allSlots = FXCollections.observableArrayList();
         for (Node node : tiles){
             if (node instanceof Slot)
                 allSlots.add((Slot) node);
+        }
+        return allSlots;
+    }*/
+
+    private ObservableList<Tile> getAllSlots() {
+        ObservableList<Tile> allSlots = FXCollections.observableArrayList();
+        for (Node node : tiles){
+                allSlots.add((Tile) node);
         }
         return allSlots;
     }

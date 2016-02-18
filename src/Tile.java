@@ -12,7 +12,7 @@ public class Tile extends AbstractTile {
    private int value;
     private Label valueLabel;
 
-    public Tile() {
+    /*public Tile() {
         super();
 
         this.value = newValue();
@@ -25,6 +25,17 @@ public class Tile extends AbstractTile {
 
         TileAnimation.animateTileCreation(this);
 
+    }*/
+    public Tile(int value) {
+        super();
+        square.getStyleClass().add("tile-empty");
+        this.value = 0;
+        this.valueLabel = new Label();
+        valueLabel.getStyleClass().add("tile-label");
+        //building the Tile's graphical components
+        this.getChildren().add(valueLabel);
+
+        TileAnimation.animateTileCreation(this);
     }
 
 
@@ -39,14 +50,16 @@ public class Tile extends AbstractTile {
     }
 
 
-    public int newValue(){
-        if(Math.random() < 0.9 ){
+    public void newValue(){
+        if(Math.random() < 0.8 ){
             square.getStyleClass().add("tile-2"); //adds a css class to the square
-            return 2;
+            setValue(2);
+            valueLabel.setText(Integer.toString(this.value));
         }
         else{
             square.getStyleClass().add("tile-4"); //adds a css class to the square
-            return 4;
+            setValue(4);
+            valueLabel.setText(Integer.toString(this.value));
         }
     }
 }
