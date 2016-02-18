@@ -38,7 +38,25 @@ public class Board extends TilePane {
 
     }
 
-        
+    // adds all the nodes from the board into a 2D array for easy traversal and comparison
+    private void addTilesToArray (){
+        for (int i = 0; i < 16; i++) {
+            AbstractTile at = (AbstractTile)(this.getChildren().get(i));
+            if (i < 4){
+                tileArray[0][i] = at;
+            }
+            else if (i < 8){
+                tileArray[1][i - 4] = at;
+            }
+            else if (i < 8){
+                tileArray[2][i - 8] = at;
+            }
+            else{
+                tileArray[3][i - 12] = at;
+            }
+        }
+    }
+    
     private <T extends AbstractTile> void addTile(T tile){
 
         this.getChildren().add(tile);
