@@ -16,7 +16,7 @@ public class Tile extends AbstractTile {
         super();
 
         this.value = newValue();
-        this.valueLabel = new Label();
+       this.valueLabel = new Label();
 
         //building the Tile's graphical components
         this.getChildren().add(valueLabel);

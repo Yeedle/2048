@@ -17,7 +17,7 @@ public class Slot extends AbstractTile {
 
 
     /**
-     * Checks if a slot is empty
+     * Checks if a slot contains a tile
      * @return true if slot contains tile, false if not
      */
     public boolean containsTile() {

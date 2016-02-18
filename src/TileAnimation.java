@@ -30,6 +30,11 @@ public class TileAnimation {
 
     }
 
+    /**
+     * Calculates number of pixels to move tiles, based on numer of tiles to move
+     * @param numberOfTilesToMove negative if they are going down or left
+     * @return the amount of pixels to move the tile
+     */
     protected double calculatePixelsBasedOn(int numberOfTilesToMove) {
         return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile
         //todo figure out how to get the padding between each tile programmatically
