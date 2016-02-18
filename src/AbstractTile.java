@@ -25,7 +25,21 @@ import javafx.scene.shape.Rectangle;
 
 
         this.getChildren().addAll(square);
+
+
     }
 
+    /**
+     * gets value of tile. 0 if tile is not an instance of Tile
+     * @return the value of the tile. 0 if the tile is not an instance of Tile
+     */
+    public int getValue(){
+        if (this instanceof Slot)
+            return 0;
+        else {
+            Tile tile = (Tile)this;
+            return tile.getValue();
+        }
+    }
 
 }

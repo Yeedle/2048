@@ -38,7 +38,9 @@ public class Board extends TilePane {
 
     }
 
-    // adds all the nodes from the board into a 2D array for easy traversal and comparison
+    /**
+     * adds all the nodes from the board into a 2D array for easy traversal and comparison
+     */
     private void addTilesToArray (){
         for (int i = 0; i < 16; i++) {
             AbstractTile tile = this.getTile(i);
@@ -48,6 +50,11 @@ public class Board extends TilePane {
         }
     }
 
+    /**
+     * returns a tile of the board based on index
+     * @param index
+     * @return
+     */
     private AbstractTile getTile(int index){
             return (AbstractTile)this.getChildren().get(index);
     }
