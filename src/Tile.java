@@ -52,11 +52,13 @@ public class Tile extends AbstractTile {
 
     public void newValue(){
         if(Math.random() < 0.8 ){
+            square.getStyleClass().removeAll("tile-empty");
             square.getStyleClass().add("tile-2"); //adds a css class to the square
             setValue(2);
             valueLabel.setText(Integer.toString(this.value));
         }
         else{
+            square.getStyleClass().removeAll("tile-empty");
             square.getStyleClass().add("tile-4"); //adds a css class to the square
             setValue(4);
             valueLabel.setText(Integer.toString(this.value));
