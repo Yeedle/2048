@@ -56,7 +56,7 @@ public class Board extends TilePane {
             }
         }
     }
-    
+
     private <T extends AbstractTile> void addTile(T tile){
 
         this.getChildren().add(tile);

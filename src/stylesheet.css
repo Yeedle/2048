@@ -16,8 +16,8 @@
 
 .tile {
 
-    -fx-arc-height: 7px;
-    -fx-arc-width: 7px;
+    -fx-arc-height: 12px;
+    -fx-arc-width: 12px;
 }
 
 .tile-empty {
