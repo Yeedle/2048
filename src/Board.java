@@ -11,6 +11,12 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
+    int[][] board = new int[4][4];
+
+
+
+
+
 
     AbstractTile[][] tileArray = new AbstractTile[4][4];
     ObservableList<Node> tiles = this.getChildren();
