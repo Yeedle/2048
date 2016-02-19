@@ -51,7 +51,7 @@ public class Tile extends AbstractTile {
 
 
     public void newValue(){
-        if(Math.random() < 0.8 ){
+        if(Math.random() < 0.9 ){
             square.getStyleClass().removeAll("tile-empty");
             square.getStyleClass().add("tile-2"); //adds a css class to the square
             setValue(2);

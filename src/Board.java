@@ -11,8 +11,7 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-    int[][] board = new int[4][4];
-
+    LogicalBoard logicalBoard = new LogicalBoard();
 
 
 
