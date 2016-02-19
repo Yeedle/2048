@@ -77,7 +77,7 @@ public class BoardFun {
         if(shiftBoard(board)){
             //generate a new tile
         }else{
-            //check if game is over by finding (or not finding) 0s
+            //check if game is over by finding (or not finding) 0s, and by looking for a possible merge
         }
         prntBoard();
     }
