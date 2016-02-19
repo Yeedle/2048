@@ -7,26 +7,34 @@ public class BoardFun {
     static int[][] board = new int[4][4];
 
     // call shiftRaw() for each row in the board
-    static void shiftBoard(int[][] board) {
+    static boolean shiftBoard(int[][] board) {
+        boolean boardShifted = false;
         for (int[] row : board) {
-            mergeRow(row);
+            if(mergeRow(row)){
+                boardShifted = true;
+            }
+
         }
+        return boardShifted;
     }
 
     // merge similar values
-    static void mergeRow(int[] row) {
-        shiftZeros(row);
+    static boolean mergeRow(int[] row) {
+        boolean merged = shiftZeros(row);
         for (int i = 0; i < row.length - 1; i++) {
             if (row[i] == row[i + 1] && (row[i] != 0)) {
                 row[i] += row[i + 1];
                 row[i + 1] = 0;
+                merged = true;
             }
             shiftZeros(row);
         }
+        return merged;
     }
 
     // shifts 0s to the opposite direction
-    static void shiftZeros(int[] row) {
+    static boolean shiftZeros(int[] row) {
+        boolean shifted = false;
         for (int i = 0; i < row.length; i++) {
             if (row[i] == 0) {
                 for (int j = i + 1; j < row.length; j++) {
@@ -36,8 +44,10 @@ public class BoardFun {
                         break;
                     }
                 }
+                shifted = true;
             }
         }
+        return shifted;
     }
 
     static void prntBoard() {
@@ -64,7 +74,11 @@ public class BoardFun {
             }
         }
         prntBoard();
-        shiftBoard(board);
+        if(shiftBoard(board)){
+            //generate a new tile
+        }else{
+            //check if game is over by finding (or not finding) 0s
+        }
         prntBoard();
     }
 }
