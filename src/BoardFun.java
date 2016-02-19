@@ -50,6 +50,20 @@ public class BoardFun {
         return shifted;
     }
 
+    //rotate array 90 degrees clockwise
+    static void rotateBoard(){
+        int i = board.length;
+        int j = board[0].length;
+        int[][] rotatedArray = new int[j][i];
+        for (int r = 0; r < i; r++) {
+            for (int c = 0; c < j; c++) {
+                rotatedArray[c][i-1-r] = board[r][c];
+            }
+        }
+        board = rotatedArray;
+    }
+
+
     static void prntBoard() {
         System.out.println("");
         for (int[] row : board) {
@@ -74,11 +88,17 @@ public class BoardFun {
             }
         }
         prntBoard();
+        rotateBoard();
+        rotateBoard();
+
+
         if(shiftBoard(board)){
             //generate a new tile
         }else{
             //check if game is over by finding (or not finding) 0s, and by looking for a possible merge
         }
+        rotateBoard();
+        rotateBoard();
         prntBoard();
     }
 }
