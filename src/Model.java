@@ -1,15 +1,20 @@
 import java.util.Random;
 
 /**
+ * Model is an abstract representation of the 2048 board. There are no tiles in this
+ * representation, just values in a 2d array. There's only one move available in this representation
+ * and that is the move to the left. The rest of the moves are accomplished by rotating the board.
+ * This should serve as the Model layer. There should be a Controller class which should communicate
+ * between the GUI classes, and this class.
  * Created by Modi on 2/19/2016.
  */
-public class LogicalBoard {
+public class Model {
     final static int ROWS =4;
     final static int COLUMNS = 4;
     static int[][] board = new int[ROWS][COLUMNS];
 
     // constructor adds two random tiles to the board
-    public LogicalBoard(){
+    public Model(){
         for (int i = 0; i < 2; i++) {
             addNewLogicalTile();
         }

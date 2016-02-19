@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-    LogicalBoard logicalBoard = new LogicalBoard();
+    Model logicalBoard = new Model();
 
 
 
