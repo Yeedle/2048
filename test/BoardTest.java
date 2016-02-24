@@ -31,7 +31,7 @@ public class BoardTest{
                 numOfTilesFound++;
             }
 
-            assertThat(2, equalTo(numOfTilesFound));
+            assertThat(numOfTilesFound, equalTo(2));
 
         }
 
