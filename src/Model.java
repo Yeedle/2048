@@ -27,8 +27,8 @@ public class Model {
             Random rand = new Random();
             int randNum = rand.nextInt(emptyTiles.length);
 
-            int row = emptyTiles[randNum][1];
-            int column = emptyTiles[randNum][2];
+            int row = emptyTiles[randNum][0];
+            int column = emptyTiles[randNum][1];
             board[row][column] = newValue();
         }
     }
