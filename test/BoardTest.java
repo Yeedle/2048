@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,12 +13,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class BoardTest{
 
-    @Before
-    public void setUp(){
-
-        //TODO set up javaFX initialization to overcome IlligalStateException
-        //http://stackoverflow.com/questions/18429422/basic-junit-test-for-javafx-8
-    }
+    @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
     @Test
     public void testInitializeBoardProducesTwoTiles() throws Exception {
