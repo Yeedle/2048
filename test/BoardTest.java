@@ -1,4 +1,7 @@
+import javafx.application.Application;
 import javafx.scene.Node;
+import javafx.stage.Stage;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,7 +10,14 @@ import static org.hamcrest.CoreMatchers.*;
 /**
  * Created by Yeedle on 2/15/2016 5:04 PM.
  */
-public class BoardTest {
+public class BoardTest{
+
+    @Before
+    public void setUp(){
+
+        //TODO set up javaFX initialization to overcome IlligalStateException
+        //http://stackoverflow.com/questions/18429422/basic-junit-test-for-javafx-8
+    }
 
     @Test
     public void testInitializeBoardProducesTwoTiles() throws Exception {
