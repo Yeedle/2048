@@ -14,15 +14,14 @@ public class Board extends TilePane {
     Model logicalBoard = new Model();
 
 
-
-
-
     AbstractTile[][] tileArray = new AbstractTile[4][4];
     ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
-    public Board() {
+    public Board()
+    {
+        addSlots();
         addEmptyTiles();
         this.getStyleClass().add("board");
         initializeBoard();
@@ -30,11 +29,21 @@ public class Board extends TilePane {
 
     }
 
+    private void addSlots()
+    {
+        final int NUM_OF_TILES = 16;
+
+        for (int i = 0; i < NUM_OF_TILES; i++) {
+            this.addSlot(new Slot());
+        }
+    }
+
 
     /**
      * Fills the board with empty tiles
      */
-    private void addEmptyTiles() {
+    private void addEmptyTiles()
+    {
 
         final int NUM_OF_TILES = 16;
 
@@ -47,7 +56,8 @@ public class Board extends TilePane {
     /**
      * adds all the nodes from the board into a 2D array for easy traversal and comparison
      */
-    private void addTilesToArray (){
+    private void addTilesToArray ()
+    {
         for (int i = 0; i < 16; i++) {
             AbstractTile tile = this.getTile(i);
             int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
@@ -60,14 +70,20 @@ public class Board extends TilePane {
      * @param index
      * @return
      */
-    private AbstractTile getTile(int index){
+    private AbstractTile getTile(int index)
+    {
             return (AbstractTile)this.getChildren().get(index);
     }
 
-    private <T extends AbstractTile> void addTile(T tile){
+    private void addSlot(Slot slot)
+    {
+        this.getChildren().add(slot);
+    }
 
-        this.getChildren().add(tile);
-
+    private void addTile(Tile tile, int slotNumber)
+    {
+        Slot currentSlot = (Slot)this.getChildren().get(slotNumber);
+        currentSlot.add(tile);
     }
 
     public void initializeBoard() {

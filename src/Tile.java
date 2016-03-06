@@ -12,21 +12,22 @@ public class Tile extends AbstractTile {
    private int value;
     private Label valueLabel;
 
-    /*public Tile() {
+    /**
+     * Used to construct empty tiles at the beginninf of the game
+     */
+    public Tile()
+    {
         super();
 
-        this.value = newValue();
-       this.valueLabel = new Label();
-
-        //building the Tile's graphical components
-        this.getChildren().add(valueLabel);
-        valueLabel.setText(Integer.toString(this.value));
-        valueLabel.getStyleClass().add("tile-label");
+        value = 0;
 
         TileAnimation.animateTileCreation(this);
 
-    }*/
-    public Tile(int value) {
+    }
+
+
+    public Tile(int value)
+    {
         super();
         square.getStyleClass().add("tile-empty");
         this.value = 0;
@@ -51,14 +52,15 @@ public class Tile extends AbstractTile {
 
 
     public void newValue(){
+
+        square.getStyleClass().remove("tile-empty");
         if(Math.random() < 0.9 ){
-            square.getStyleClass().removeAll("tile-empty");
+
             square.getStyleClass().add("tile-2"); //adds a css class to the square
             setValue(2);
             valueLabel.setText(Integer.toString(this.value));
         }
         else{
-            square.getStyleClass().removeAll("tile-empty");
             square.getStyleClass().add("tile-4"); //adds a css class to the square
             setValue(4);
             valueLabel.setText(Integer.toString(this.value));

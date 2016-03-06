@@ -18,12 +18,14 @@ import javafx.scene.shape.Rectangle;
      * creates a rectangle and a label and adds it to the Tile.
      * Adds the style class "tile" to the tile.
      */
-    protected AbstractTile(){
+    protected AbstractTile()
+    {
         square = new Rectangle(WIDTH, HEIGHT);
         square.getStyleClass().add("tile");
         this.getChildren().addAll(square);
     }
 
+    //TODO: Get rid of this getValue method. Slots won't have any value, and will only serve as containers for tiles
     /**
      * gets value of tile. 0 if tile is not an instance of Tile
      * @return the value of the tile. 0 if the tile is not an instance of Tile
