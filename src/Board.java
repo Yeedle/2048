@@ -22,13 +22,15 @@ public class Board extends TilePane {
     public Board()
     {
         addSlots();
-      //  addEmptyTiles();
         this.getStyleClass().add("board");
        initializeBoard();
-      //  addTilesToArray();
+        addTilesToArray();
 
     }
 
+    /**
+     * fills the board with Slots.
+     */
     private void addSlots()
     {
         final int NUM_OF_TILES = 16;
@@ -40,26 +42,14 @@ public class Board extends TilePane {
 
 
     /**
-     * Fills the board with empty tiles
-     */
-    private void addEmptyTiles()
-    {
-
-        final int NUM_OF_TILES = 16;
-
-        for (int i = 0; i < NUM_OF_TILES; i++) {
-            this.addTile(new Tile(), i);
-        }
-
-    }
-
-    /**
      * adds all the nodes from the board into a 2D array for easy traversal and comparison
      */
     private void addTilesToArray ()
     {
+        ObservableList<Slot> slots = getAllSlots();
         for (int i = 0; i < 16; i++) {
-            AbstractTile tile = this.getTile(i);
+            Slot slot = slots.get(i);
+            Tile tile = slot.getTile();
             int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
                 tileArray[row][i%4] = tile;
         }
@@ -145,6 +135,7 @@ public class Board extends TilePane {
             int randSlot = rand.nextInt(numOfEmptySlots);
             Slot emptySlot = emptySlots.get(randSlot);
             emptySlot.newTileValue();
+            TileAnimation.animateTileCreation(emptySlot.getTile());
         } else {
             emptySlots.get(0).newTileValue();
             checkIfOtherMoveAvailable();

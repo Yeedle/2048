@@ -6,7 +6,7 @@ import javafx.scene.layout.StackPane;
  */
 public class Slot extends AbstractTile {
 
-    Tile tile = new Tile();
+    private Tile tile = new Tile();
 
     /**
      * Constructor
@@ -53,5 +53,9 @@ public class Slot extends AbstractTile {
     public void newTileValue()
     {
         tile.newValue();
+    }
+
+    public Tile getTile() {
+        return tile;
     }
 }
