@@ -6,6 +6,8 @@ import javafx.scene.layout.StackPane;
  */
 public class Slot extends AbstractTile {
 
+    Tile tile = new Tile();
+
     /**
      * Constructor
      * sets the style class to look like an empty tile
@@ -13,7 +15,10 @@ public class Slot extends AbstractTile {
     public Slot() {
         super();
         square.getStyleClass().add("tile-empty");
+
+        this.getChildren().add(tile);
     }
+
 
 
     /**
@@ -29,10 +34,24 @@ public class Slot extends AbstractTile {
     }
 
     /**
+     * returns the value of a tile living inside a slot
+     * @return the value of the tile or -1 if something went wrong
+     */
+    public int tileValue() {
+
+        return tile.getValue();
+    }
+
+    /**
      *
      * @param tile Tile to add to slot
      */
     public void add(Tile tile){
         this.getChildren().add(tile);
+    }
+
+    public void newTileValue()
+    {
+        tile.newValue();
     }
 }

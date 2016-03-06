@@ -19,7 +19,7 @@ import org.junit.runners.model.Statement;
  * public JavaFXThreadingRule jfxRule = new JavaFXThreadingRule();
  * </pre>
  *
- * @author Andy Till
+ * @author <a href="http://andrewtill.blogspot.com/2012/10/junit-rule-for-javafx-controller-testing.html">Andy Till</a>
  *
  */
 public class JavaFXThreadingRule implements TestRule {
