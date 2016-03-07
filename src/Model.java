@@ -9,7 +9,7 @@ import java.util.Random;
  * Created by Modi on 2/19/2016.
  */
 public class Model {
-    final static int ROWS =4;
+    final static int ROWS = 4;
     final static int COLUMNS = 4;
     static int[][] board = new int[ROWS][COLUMNS];
 
@@ -63,41 +63,50 @@ public class Model {
         }
     }
 
+    //************methods to handle moves left**************//
+
+    public boolean moveLeft(Tile[][] logicBoard)
+    {
+        return shiftBoardLeft(logicBoard);
+    }
+
     // call shiftRaw() for each row in the board
-    static boolean shiftBoard(int[][] board) {
+    static boolean shiftBoardLeft(Tile[][] board) {
         boolean boardShifted = false;
-        for (int[] row : board) {
-            if(mergeRow(row)){
+        for (Tile[] row : board) {
+            if(mergeRowLeft(row)){
                 boardShifted = true;
             }
-
         }
         return boardShifted;
     }
 
     // merge similar values
-    static boolean mergeRow(int[] row) {
-        boolean merged = shiftZeros(row);
+    static boolean mergeRowLeft(Tile[] row) {
+        boolean merged = shiftZerosLeft(row);
         for (int i = 0; i < row.length - 1; i++) {
-            if (row[i] == row[i + 1] && (row[i] != 0)) {
-                row[i] += row[i + 1];
-                row[i + 1] = 0;
+            if (row[i].getValue() == row[i+1].getValue() && (row[i].getValue() != 0)) {
+                row[i].setValue(row[i].getValue() + row[i+1].getValue());
+                row[i+1].setTransition(row[i+1].getTransition() + 1);
+                row[i+1].setValue(0);
                 merged = true;
             }
-            shiftZeros(row);
+            shiftZerosLeft(row);
         }
         return merged;
     }
 
     // shifts 0s to the opposite direction
-    static boolean shiftZeros(int[] row) {
+    static boolean shiftZerosLeft(Tile[] row) {
         boolean shifted = false;
         for (int i = 0; i < row.length; i++) {
-            if (row[i] == 0) {
+            if (row[i].getValue() == 0) {
                 for (int j = i + 1; j < row.length; j++) {
-                    if (row[j] != 0) {
+                    if (row[j].getValue() != 0) {
+                        Tile tempTile = row[i];
                         row[i] = row[j];
-                        row[j] = 0;
+                        row[i].setTransition(row[i].getTransition() + Math.abs(j - i));
+                        row[j] = tempTile;
                         break;
                     }
                 }
@@ -107,17 +116,190 @@ public class Model {
         return shifted;
     }
 
-    //rotate array 90 degrees clockwise
-    static void rotateBoard(){
-        int i = board.length;
-        int j = board[0].length;
-        int[][] rotatedArray = new int[j][i];
-        for (int r = 0; r < i; r++) {
-            for (int c = 0; c < j; c++) {
-                rotatedArray[c][i-1-r] = board[r][c];
+    //************methods to handle moves down**************//
+
+    public boolean moveDown(Tile[][] logicBoard)
+    {
+        return shiftBoardDown(logicBoard);
+    }
+
+    // call shiftRaw() for each row in the board
+    static boolean shiftBoardDown(Tile[][] logicBoard) {
+        boolean boardShifted = false;
+        rotateLogicBoard(logicBoard);
+        for (Tile[] row : logicBoard) {
+            if(mergeRowDown(row)){
+                boardShifted = true;
             }
         }
-        board = rotatedArray;
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        return boardShifted;
+    }
+
+    // merge similar values
+    static boolean mergeRowDown(Tile[] row) {
+        boolean merged = shiftZerosDown(row);
+        for (int i = 0; i < row.length - 1; i++) {
+            if (row[i].getValue() == row[i+1].getValue() && (row[i].getValue() != 0)) {
+                row[i].setValue(row[i].getValue() + row[i+1].getValue());
+                row[i+1].setTransition(row[i+1].getTransition() + 1);
+                row[i+1].setValue(0);
+                merged = true;
+            }
+            shiftZerosDown(row);
+        }
+        return merged;
+    }
+
+    // shifts 0s to the opposite direction
+    static boolean shiftZerosDown(Tile[] row) {
+        boolean shifted = false;
+        for (int i = 0; i < row.length; i++) {
+            if (row[i].getValue() == 0) {
+                for (int j = i + 1; j < row.length; j++) {
+                    if (row[j].getValue() != 0) {
+                        Tile tempTile = row[i];
+                        row[i] = row[j];
+                        row[i].setTransition(row[i].getTransition() + Math.abs(j - i));
+                        row[j] = tempTile;
+                        break;
+                    }
+                }
+                shifted = true;
+            }
+        }
+        return shifted;
+    }
+
+    //************methods to handle moves right**************//
+
+    public boolean moveRight(Tile[][] logicBoard)
+    {
+        return shiftBoardDown(logicBoard);
+    }
+
+    // call shiftRaw() for each row in the board
+    static boolean shiftBoardRight(Tile[][] logicBoard) {
+        boolean boardShifted = false;
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        for (Tile[] row : logicBoard) {
+            if(mergeRowRight(row)){
+                boardShifted = true;
+            }
+        }
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        return boardShifted;
+    }
+
+    // merge similar values
+    static boolean mergeRowRight(Tile[] row) {
+        boolean merged = shiftZerosRight(row);
+        for (int i = 0; i < row.length - 1; i++) {
+            if (row[i].getValue() == row[i+1].getValue() && (row[i].getValue() != 0)) {
+                row[i].setValue(row[i].getValue() + row[i+1].getValue());
+                row[i+1].setTransition(row[i+1].getTransition() + 1);
+                row[i+1].setValue(0);
+                merged = true;
+            }
+            shiftZerosRight(row);
+        }
+        return merged;
+    }
+
+    // shifts 0s to the opposite direction
+    static boolean shiftZerosRight(Tile[] row) {
+        boolean shifted = false;
+        for (int i = 0; i < row.length; i++) {
+            if (row[i].getValue() == 0) {
+                for (int j = i + 1; j < row.length; j++) {
+                    if (row[j].getValue() != 0) {
+                        Tile tempTile = row[i];
+                        row[i] = row[j];
+                        row[i].setTransition(row[i].getTransition() + Math.abs(j - i));
+                        row[j] = tempTile;
+                        break;
+                    }
+                }
+                shifted = true;
+            }
+        }
+        return shifted;
+    }
+
+    //************methods to handle moves up**************//
+
+    public boolean moveUp(Tile[][] logicBoard)
+    {
+        return shiftBoardUp(logicBoard);
+    }
+
+    // call shiftRaw() for each row in the board
+    static boolean shiftBoardUp(Tile[][] logicBoard) {
+        boolean boardShifted = false;
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        rotateLogicBoard(logicBoard);
+        for (Tile[] row : logicBoard) {
+            if(mergeRowUp(row)){
+                boardShifted = true;
+            }
+        }
+        rotateLogicBoard(logicBoard);
+        return boardShifted;
+    }
+
+    // merge similar values
+    static boolean mergeRowUp(Tile[] row) {
+        boolean merged = shiftZerosUp(row);
+        for (int i = 0; i < row.length - 1; i++) {
+            if (row[i].getValue() == row[i+1].getValue() && (row[i].getValue() != 0)) {
+                row[i].setValue(row[i].getValue() + row[i+1].getValue());
+                row[i+1].setTransition(row[i+1].getTransition() + 1);
+                row[i+1].setValue(0);
+                merged = true;
+            }
+            shiftZerosUp(row);
+        }
+        return merged;
+    }
+
+    // shifts 0s to the opposite direction
+    static boolean shiftZerosUp(Tile[] row) {
+        boolean shifted = false;
+        for (int i = 0; i < row.length; i++) {
+            if (row[i].getValue() == 0) {
+                for (int j = i + 1; j < row.length; j++) {
+                    if (row[j].getValue() != 0) {
+                        Tile tempTile = row[i];
+                        row[i] = row[j];
+                        row[i].setTransition(row[i].getTransition() + Math.abs(j - i));
+                        row[j] = tempTile;
+                        break;
+                    }
+                }
+                shifted = true;
+            }
+        }
+        return shifted;
+    }
+
+    //**************************//
+
+    //rotate array 90 degrees clockwise
+    static void rotateLogicBoard(Tile[][] logicBoard){
+        int i = board.length;
+        int j = board[0].length;
+        Tile[][] rotatedArray = new Tile[j][i];
+        for (int r = 0; r < i; r++) {
+            for (int c = 0; c < j; c++) {
+                rotatedArray[c][i-1-r] = logicBoard[r][c];
+            }
+        }
+        logicBoard = rotatedArray;
     }
 
 
@@ -144,18 +326,7 @@ public class Model {
                 }
             }
         }
-        prntBoard();
-        rotateBoard();
-        rotateBoard();
 
-
-        if(shiftBoard(board)){
-            //generate a new tile
-        }else{
-            //check if game is over by finding (or not finding) 0s, and by looking for a possible merge
-        }
-        rotateBoard();
-        rotateBoard();
         prntBoard();
     }
 }

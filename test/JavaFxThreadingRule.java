@@ -22,7 +22,7 @@ import org.junit.runners.model.Statement;
  * @author <a href="http://andrewtill.blogspot.com/2012/10/junit-rule-for-javafx-controller-testing.html">Andy Till</a>
  *
  */
-public class JavaFXThreadingRule implements TestRule {
+class JavaFXThreadingRule implements TestRule {
 
     /**
      * Flag for setting up the JavaFX, we only need to do this once for all tests.

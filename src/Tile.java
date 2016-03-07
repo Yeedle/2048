@@ -10,7 +10,9 @@ import javafx.util.Duration;
 public class Tile extends AbstractTile {
 
    private int value;
+    private int transition;
     private Label valueLabel;
+
 
     /**
      * Used to construct empty tiles at the beginninf of the game
@@ -76,6 +78,11 @@ public class Tile extends AbstractTile {
         }
     }
 
+    public int getTransition() {
+        return transition;
+    }
 
-
+    public void setTransition(int transition) {
+        this.transition = transition;
+    }
 }
