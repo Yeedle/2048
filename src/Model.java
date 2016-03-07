@@ -65,7 +65,7 @@ public class Model {
 
     //************methods to handle moves left**************//
 
-    public boolean moveLeft(Tile[][] logicBoard)
+    static boolean moveLeft(Tile[][] logicBoard)
     {
         return shiftBoardLeft(logicBoard);
     }
@@ -118,7 +118,7 @@ public class Model {
 
     //************methods to handle moves down**************//
 
-    public boolean moveDown(Tile[][] logicBoard)
+    static boolean moveDown(Tile[][] logicBoard)
     {
         return shiftBoardDown(logicBoard);
     }
@@ -126,15 +126,15 @@ public class Model {
     // call shiftRaw() for each row in the board
     static boolean shiftBoardDown(Tile[][] logicBoard) {
         boolean boardShifted = false;
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         for (Tile[] row : logicBoard) {
             if(mergeRowDown(row)){
                 boardShifted = true;
             }
         }
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         return boardShifted;
     }
 
@@ -175,7 +175,7 @@ public class Model {
 
     //************methods to handle moves right**************//
 
-    public boolean moveRight(Tile[][] logicBoard)
+    static  boolean moveRight(Tile[][] logicBoard)
     {
         return shiftBoardDown(logicBoard);
     }
@@ -183,15 +183,15 @@ public class Model {
     // call shiftRaw() for each row in the board
     static boolean shiftBoardRight(Tile[][] logicBoard) {
         boolean boardShifted = false;
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         for (Tile[] row : logicBoard) {
             if(mergeRowRight(row)){
                 boardShifted = true;
             }
         }
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         return boardShifted;
     }
 
@@ -232,7 +232,7 @@ public class Model {
 
     //************methods to handle moves up**************//
 
-    public boolean moveUp(Tile[][] logicBoard)
+    static boolean moveUp(Tile[][] logicBoard)
     {
         return shiftBoardUp(logicBoard);
     }
@@ -240,15 +240,15 @@ public class Model {
     // call shiftRaw() for each row in the board
     static boolean shiftBoardUp(Tile[][] logicBoard) {
         boolean boardShifted = false;
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         for (Tile[] row : logicBoard) {
             if(mergeRowUp(row)){
                 boardShifted = true;
             }
         }
-        rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
         return boardShifted;
     }
 
@@ -290,7 +290,7 @@ public class Model {
     //**************************//
 
     //rotate array 90 degrees clockwise
-    static void rotateLogicBoard(Tile[][] logicBoard){
+    static Tile[][] rotateLogicBoard(Tile[][] logicBoard){
         int i = board.length;
         int j = board[0].length;
         Tile[][] rotatedArray = new Tile[j][i];
@@ -299,15 +299,15 @@ public class Model {
                 rotatedArray[c][i-1-r] = logicBoard[r][c];
             }
         }
-        logicBoard = rotatedArray;
+        return rotatedArray;
     }
 
 
-    static void prntBoard() {
+    static void prntBoard(Tile[][] prntboard) {
         System.out.println("");
-        for (int[] row : board) {
-            for (int j : row) {
-                System.out.print("[" + j + "]  ");
+        for (Tile[] row : prntboard) {
+            for (Tile j : row) {
+                System.out.print("[" + j.getValue() + "]  " + j.getTransition()+ " | ");
             }
             System.out.println("");
         }
@@ -327,6 +327,5 @@ public class Model {
             }
         }
 
-        prntBoard();
     }
 }

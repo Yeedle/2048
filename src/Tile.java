@@ -26,7 +26,7 @@ public class Tile extends AbstractTile {
         this.valueLabel = new Label();
         valueLabel.getStyleClass().add("tile-label");
 
-      //  TileAnimation.animateTileCreation(this);
+        TileAnimation.animateTileCreation(this);
 
     }
 
