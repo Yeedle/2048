@@ -24,7 +24,7 @@ public class TileAnimation {
     public void moveTile(Tile tile, int numberOfTilesToMove, Direction direction){
 
         // if it gets moved in the negative direction, we add a negative sign
-        if (direction.equals(Direction.DOWN) || direction.equals(Direction.LEFT))
+        if (direction.equals(Direction.UP) || direction.equals(Direction.LEFT))
         {
             numberOfTilesToMove = -numberOfTilesToMove;
         }
@@ -65,7 +65,7 @@ public class TileAnimation {
     /**
      * plays the parallelTransition for all the TranslateTransitions accumulated in pt
      */
-    public  boolean playAnimations(){
+    public  boolean playAnimations(Tile[][] tiles){
         if (pt.getChildren().size() == 0)
             return false;
         else {
@@ -73,16 +73,25 @@ public class TileAnimation {
             pt.setOnFinished(e -> {
 
                 Board board = new Board();
-                System.out.println("pt just finished");
-                for (Animation animation : pt.getChildren()) {
+               for (Animation animation : pt.getChildren()) {
                     TranslateTransition t = (TranslateTransition) animation;
                     Node node = t.getNode();
                     Tile tile = (Tile) node;
                     Slot slot = (Slot) tile.getParent();
-                    slot.newTile();
+
+                   slot.newTile();
                     board = (Board) slot.getParent();
                 }
+
+                pt.stop();
+                pt.getChildren().clear();
+
+                for (Tile[] row : tiles)
+                    for (Tile tile : row)
+                        tile.updateValueLabel();
                 board.addNewTile();
+                board.printBoard();
+
             });
             return true;
         }

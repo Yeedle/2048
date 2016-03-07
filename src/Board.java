@@ -15,11 +15,11 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-    Model logicalBoard = new Model();
+   // Model model = new Model();
     TileAnimation ta;
 
     Tile[][] tileArray = new Tile[4][4];
-    ObservableList<Node> tiles = this.getChildren();
+ //   ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
     //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
@@ -28,7 +28,8 @@ public class Board extends TilePane {
         addSlots();
         this.getStyleClass().add("board");
        initializeBoard();
-        addTilesToArray();
+       addTilesToArray();
+
 
     }
 
@@ -57,7 +58,10 @@ public class Board extends TilePane {
             int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
                 tileArray[row][i%4] = tile;
         }
+
     }
+
+
 
     /**
      * returns a tile of the board based on index
@@ -92,56 +96,71 @@ public class Board extends TilePane {
 
     //the board handles the four basic moves in the game: up, down, left, and right
     protected void movedUp() {
-        //TODO: handle the up move
-        System.out.println("movedUp");
-       // if no move available, do nothing
-        //after move is over, generate new tile and place in on board
-        addNewTile();
+        ta = new TileAnimation();
+
+        if ( Model.moveLeft(tileArray))
+            for (Tile[] row : tileArray)
+                for (Tile tile : row)
+                    if (tile.getTransition() > 0) {
+                        ta.moveTile(tile, tile.getTransition(), Direction.UP);
+                        tile.setTransition(0);
+                    }
+        System.out.println("finished adding all the transitions to pt");
+        printBoard();
+
+        ta.playAnimations(tileArray);
+
     }
 
 
     protected void movedDown() {
 
-        //TODO: handle the down move
-        System.out.println("moveddown");
-        //after move is over, generate new tile and place in on board
-        addNewTile();
+        ta = new TileAnimation();
+
+        if ( Model.moveLeft(tileArray))
+            for (Tile[] row : tileArray)
+                for (Tile tile : row)
+                    if (tile.getTransition() > 0) {
+                        ta.moveTile(tile, tile.getTransition(), Direction.DOWN);
+                        tile.setTransition(0);
+                    }
+        System.out.println("finished adding all the transitions to pt");
+        printBoard();
+
+        ta.playAnimations(tileArray);
+
     }
 
     protected void movedLeft() {
-        printBoard();
+
         ta = new TileAnimation();
 
-        //TODO: handle the left move
-        for (Tile[] row : tileArray) {
-            for (int i = 0; i < row.length - 1; i++) {
-                if (row[i].getValue() == row[i + 1].getValue() && row[i].getValue() != 0) {
-                    System.out.println("Tile animation will be called, i is now " + i);
-                    Tile tileToMove = row[i + 1];
-                    Slot slotOfTileToMove = (Slot) tileToMove.getParent();
-                    ta.moveTile(row[i + 1], 1, Direction.LEFT);
-
-                    row[i].setValue(row[i].getValue() + row[i + 1].getValue());
-                    //    printBoard();
-                    i = +2; //to skip the next tile because already being combined
+        if ( Model.moveLeft(tileArray))
+         for (Tile[] row : tileArray)
+            for (Tile tile : row)
+                if (tile.getTransition() > 0) {
+                    ta.moveTile(tile, tile.getTransition(), Direction.LEFT);
+                    tile.setTransition(0);
                 }
+        System.out.println("finished adding all the transitions to pt");
+        printBoard();
+
+        ta.playAnimations(tileArray);
 
 
-            }
-        }
 
-        if (!ta.playAnimations()) {
+//      if (!ta.playAnimations()) {
             //after move is over, generate new tile and place in on board
-            addNewTile();
-        }
+           // addNewTile();
+  //    }
     }
-    private void printBoard() {
+    protected void printBoard() {
         System.out.println("");
         for (Tile[] row :tileArray)
         {
             for (Tile j : row)
             {
-                System.out.print("["+ j.getValue() +"]");
+                System.out.print("["+ j.getValue() +"] " + j.getTransition() +" | ");
             }
             System.out.println("");
         }
@@ -149,10 +168,20 @@ public class Board extends TilePane {
 
     protected void movedRight() {
 
-        //TODO: handle the right move
+        ta = new TileAnimation();
 
-        //after move is over, generate new tile and place in on board
-        addNewTile();
+        if ( Model.moveLeft(tileArray))
+            for (Tile[] row : tileArray)
+                for (Tile tile : row)
+                    if (tile.getTransition() > 0) {
+                        ta.moveTile(tile, tile.getTransition(), Direction.RIGHT);
+                        tile.setTransition(0);
+                    }
+        System.out.println("finished adding all the transitions to pt");
+        printBoard();
+
+        ta.playAnimations(tileArray);
+
     }
 
     /**
@@ -176,6 +205,8 @@ public class Board extends TilePane {
             checkIfOtherMoveAvailable();
         }
         addTilesToArray();
+        System.out.println("");
+        System.out.println("printing board after adding a tile");
         printBoard();
     }
 

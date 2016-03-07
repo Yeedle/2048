@@ -21,6 +21,7 @@ public class Model {
     }
 
 
+
     private void addNewLogicalTile() {
         int[][] emptyTiles = getEmptyTiles();
         if (emptyTiles.length > 0) {
@@ -65,9 +66,9 @@ public class Model {
 
     //************methods to handle moves left**************//
 
-    static boolean moveLeft(Tile[][] logicBoard)
-    {
-        return shiftBoardLeft(logicBoard);
+    static boolean moveLeft(Tile[][] logicBoard) {
+        boolean shifted = shiftBoardLeft(logicBoard);
+        return shifted;
     }
 
     // call shiftRaw() for each row in the board
