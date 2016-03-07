@@ -72,6 +72,10 @@ public class TileAnimation {
             pt.play();
             pt.setOnFinished(e -> {
 
+               // for (Tile[] row : tiles)
+                 //   for (Tile tile : row)
+                   //     tile.updateValueLabel();
+
                 Board board = new Board();
                for (Animation animation : pt.getChildren()) {
                     TranslateTransition t = (TranslateTransition) animation;
@@ -86,9 +90,7 @@ public class TileAnimation {
                 pt.stop();
                 pt.getChildren().clear();
 
-                for (Tile[] row : tiles)
-                    for (Tile tile : row)
-                        tile.updateValueLabel();
+
                 board.addNewTile();
                 board.printBoard();
 

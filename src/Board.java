@@ -98,7 +98,7 @@ public class Board extends TilePane {
     protected void movedUp() {
         ta = new TileAnimation();
 
-        if ( Model.moveLeft(tileArray))
+        if ( Model.moveUp(tileArray))
             for (Tile[] row : tileArray)
                 for (Tile tile : row)
                     if (tile.getTransition() > 0) {
@@ -117,7 +117,7 @@ public class Board extends TilePane {
 
         ta = new TileAnimation();
 
-        if ( Model.moveLeft(tileArray))
+        if ( Model.moveDown(tileArray))
             for (Tile[] row : tileArray)
                 for (Tile tile : row)
                     if (tile.getTransition() > 0) {
@@ -170,7 +170,7 @@ public class Board extends TilePane {
 
         ta = new TileAnimation();
 
-        if ( Model.moveLeft(tileArray))
+        if ( Model.moveRight(tileArray))
             for (Tile[] row : tileArray)
                 for (Tile tile : row)
                     if (tile.getTransition() > 0) {
