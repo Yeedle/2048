@@ -42,6 +42,14 @@ public class Program extends Application{
         board.setOnSwipeRight(se -> board.movedRight());
 
 
+        board.setOnMouseClicked(e -> {
+            Node node = (Node)e.getTarget();
+            Tile tile = (Tile)node.getParent();
+            Slot slot = (Slot)tile.getParent();
+            System.out.println(slot.name);
+        });
+
+
         window.setTitle("2048 | Java");
 
         window.setResizable(true);

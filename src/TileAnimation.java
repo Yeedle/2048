@@ -1,6 +1,11 @@
+import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 /**
@@ -8,7 +13,7 @@ import javafx.util.Duration;
  */
 public class TileAnimation {
 
-    private ParallelTransition pt = new ParallelTransition();
+    private  ParallelTransition pt = new ParallelTransition();
 
     /**
      * moveTile calculates the pixels to be moved, then calls the addToTransitions method
@@ -35,8 +40,8 @@ public class TileAnimation {
      * @param numberOfTilesToMove negative if they are going down or left
      * @return the amount of pixels to move the tile
      */
-    protected double calculatePixelsBasedOn(int numberOfTilesToMove) {
-        return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 30); // 30 is the number of pixels between each tile (padding + gaps)
+    protected  double calculatePixelsBasedOn(int numberOfTilesToMove) {
+        return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 15); // 15 is the number of pixels between each tile (padding + gaps)
         //todo figure out how to get the padding between each tile programmatically
     }
 
@@ -46,7 +51,7 @@ public class TileAnimation {
      * @param pixels
      * @param direction
      */
-    private void addToTransitionsList(Tile tile, double pixels, Direction direction) {
+    private  void addToTransitionsList(Tile tile, double pixels, Direction direction) {
 
         TranslateTransition t = new TranslateTransition(Duration.millis(200), tile);
         if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN))
@@ -60,10 +65,31 @@ public class TileAnimation {
     /**
      * plays the parallelTransition for all the TranslateTransitions accumulated in pt
      */
-    public void playAnimations(){
+    public  boolean playAnimations(){
+        if (pt.getChildren().size() == 0)
+            return false;
+        else {
+            pt.play();
+            pt.setOnFinished(e -> {
 
-        pt.play();
-        pt.setOnFinished(e -> pt.getChildren().removeAll());
+                Board board = new Board();
+                System.out.println("pt just finished");
+                for (Animation animation : pt.getChildren()) {
+                    TranslateTransition t = (TranslateTransition) animation;
+                    Node node = t.getNode();
+                    Tile tile = (Tile) node;
+                    Slot slot = (Slot) tile.getParent();
+                    slot.newTile();
+                    board = (Board) slot.getParent();
+                }
+                board.addNewTile();
+            });
+            return true;
+        }
+    }
+
+    public Animation.Status getAnimationStatus(){
+        return pt.getStatus();
     }
 
     /**

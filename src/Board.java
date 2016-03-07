@@ -1,9 +1,13 @@
+import javafx.animation.Animation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.Random;
 
 /**
@@ -12,9 +16,9 @@ import java.util.Random;
 public class Board extends TilePane {
 
     Model logicalBoard = new Model();
+    TileAnimation ta;
 
-
-    AbstractTile[][] tileArray = new AbstractTile[4][4];
+    Tile[][] tileArray = new Tile[4][4];
     ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
@@ -105,11 +109,42 @@ public class Board extends TilePane {
     }
 
     protected void movedLeft() {
+        printBoard();
+        ta = new TileAnimation();
 
         //TODO: handle the left move
+        for (Tile[] row : tileArray) {
+            for (int i = 0; i < row.length - 1; i++) {
+                if (row[i].getValue() == row[i + 1].getValue() && row[i].getValue() != 0) {
+                    System.out.println("Tile animation will be called, i is now " + i);
+                    Tile tileToMove = row[i + 1];
+                    Slot slotOfTileToMove = (Slot) tileToMove.getParent();
+                    ta.moveTile(row[i + 1], 1, Direction.LEFT);
 
-        //after move is over, generate new tile and place in on board
-        addNewTile();
+                    row[i].setValue(row[i].getValue() + row[i + 1].getValue());
+                    //    printBoard();
+                    i = +2; //to skip the next tile because already being combined
+                }
+
+
+            }
+        }
+
+        if (!ta.playAnimations()) {
+            //after move is over, generate new tile and place in on board
+            addNewTile();
+        }
+    }
+    private void printBoard() {
+        System.out.println("");
+        for (Tile[] row :tileArray)
+        {
+            for (Tile j : row)
+            {
+                System.out.print("["+ j.getValue() +"]");
+            }
+            System.out.println("");
+        }
     }
 
     protected void movedRight() {
@@ -123,7 +158,7 @@ public class Board extends TilePane {
     /**
      * Adds a new tile to the board. If there's only one slot left, add a tile and checkIfOtherMoveAvailable()
      */
-    private void addNewTile()
+    protected void addNewTile()
     {
 
         ObservableList<Slot> emptySlots = getSlotsWithEmptyTiles();
@@ -140,8 +175,8 @@ public class Board extends TilePane {
             emptySlots.get(0).newTileValue();
             checkIfOtherMoveAvailable();
         }
-
-
+        addTilesToArray();
+        printBoard();
     }
 
     /**

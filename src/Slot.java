@@ -6,7 +6,9 @@ import javafx.scene.layout.StackPane;
  */
 public class Slot extends AbstractTile {
 
+    public static int counter = 1;
     private Tile tile = new Tile();
+    String name = "Slot" + counter++;
 
     /**
      * Constructor
@@ -19,7 +21,13 @@ public class Slot extends AbstractTile {
         this.getChildren().add(tile);
     }
 
-
+    public void newTile()
+    {
+        this.getChildren().remove(tile);
+        System.out.println("tile was removed");
+        tile = new Tile();
+       this.getChildren().add(tile);
+    }
 
     /**
      * Checks if a slot contains a tile
@@ -58,4 +66,5 @@ public class Slot extends AbstractTile {
     public Tile getTile() {
         return tile;
     }
+
 }
