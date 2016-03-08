@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class BoardTest{
 
-    @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+   // @Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
     @Test
     public void testInitializeBoardProducesTwoTiles() throws Exception {
@@ -31,7 +31,7 @@ public class BoardTest{
                 numOfTilesFound++;
             }
 
-            assertThat(numOfTilesFound, equalTo(2));
+            assertEquals(2, numOfTilesFound);
 
         }
 
