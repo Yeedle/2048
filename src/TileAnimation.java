@@ -1,8 +1,7 @@
+import com.sun.javafx.css.Stylesheet;
 import javafx.animation.*;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
+import javafx.css.CssMetaData;
+import javafx.geometry.Insets;
 import javafx.util.Duration;
 
 /**
@@ -38,15 +37,20 @@ public class TileAnimation {
      * @return the amount of pixels to move the tile
      */
     protected static double calculatePixelsBasedOn(int numberOfTilesToMove) {
+
+       Stylesheet stylesheet = new Stylesheet("stylesheet.css");
+
+        System.out.println( stylesheet.getRules().size());
+
         return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 15); // 15 is the number of pixels between each tile (padding + gaps)
-        //todo figure out how to get the padding between each tile programmatically
+
     }
 
     /**
      * Adds the passed tile to the ParallelTransition's list
-     * @param tile
-     * @param pixels
-     * @param direction
+     * @param tile to be transitioned
+     * @param pixels the tile will be moved
+     * @param direction the tile will be moved in
      */
     private static void addToTransitionsList(Tile tile, double pixels, Direction direction) {
 
@@ -63,7 +67,7 @@ public class TileAnimation {
     /**
      * plays the parallelTransition for all the TranslateTransitions accumulated in pt
      */
-    public static boolean playAnimations()//Tile[][] tiles)
+    public static boolean playAnimations()
     {
         if (pt.getChildren().size() == 0)
             return false;
@@ -74,68 +78,90 @@ public class TileAnimation {
         }
     }
 
+    /**
+     * Get's the board that called the animation, notifies the board that the animation was finished, then
+     * clears the Parallel Transitions array.
+     */
     public static void finishedAnimation()
     {
-        Board board = new Board();
-        for (Animation animation : pt.getChildren())
+        Board board = getBoard();
+
+        for (Slot slot : animatedSlots())
         {
-            TranslateTransition t = (TranslateTransition) animation;
-            Node node = t.getNode();
-            Tile tile = (Tile) node;
-            Slot slot = (Slot) tile.getParent();
-
-            slot.newTile();
-
-            board = (Board) slot.getParent();
+            board.animationOfTileFinished(slot);
         }
 
-        pt.stop();
         pt.getChildren().clear();
 
-
-       for (Tile[] row : board.getTileArray())
-            for (Tile tile : row)
-            {
-                if (tile.getValue() !=0)
-                {
-                    tile.updateValueLabel();
-                    if (tile.isCombination())
-                    {
-
-                        TileAnimation.animateTileValueChanging(tile);
-                        tile.resetIsCombination();
-                    }
-                }
-            }
-
-        board.addNewTile();
-
+        board.animationsFinished();
     }
 
     /**
-     * Animates the addition of tiles to the board
+     * Returns all the slots on the board on which transitions were performed
+     * @return Slot[]
+     */
+    private static Slot[] animatedSlots() {
+        Slot[] slots = new Slot[pt.getChildren().size()];
+
+        int i =0;
+
+        for (Animation animation : pt.getChildren())
+        {
+            Slot slot = getSlotFrom((TranslateTransition) animation);
+            slots[i++] = slot;
+        }
+        return slots;
+    }
+
+
+    /**
+     * returns the board that summoned the animation.
+     * Caution: this method can only be called if pt has at least on transition in it.
+     * @return Board
+     */
+    private static Board getBoard()
+    {
+        Slot slot = getSlotFrom((TranslateTransition) pt.getChildren().get(0));
+        return (Board) slot.getParent();
+    }
+
+    /**
+     * Extracts the slot on which a transition animation was performed
+     * @param transition
+     * @return Slot
+     */
+    private static Slot getSlotFrom(TranslateTransition transition) {
+        Tile tile = (Tile)transition.getNode();
+        return (Slot)tile.getParent();
+    }
+
+    /**
+     * Animates the appearance of tiles to the board
      * @param tile to be animated
      */
-    public static void animateTileCreation(Tile tile) {
+    public static void appearAnimation(Tile tile) {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), tile);
         st.setFromX(.3);
         st.setFromY(.3);
         st.setToX(1);
         st.setToY(1);
         st.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 0.1));
-        //st.setDelay(Duration.millis(100));
         st.play();
     }
 
-    public static void animateTileValueChanging(Tile tile) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(200), tile);
+    /**
+     * animates the change of tile values.
+     * @param tile to be animated
+     */
+    public static void popAnimation(Tile tile) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), tile);
         st.setFromX(.3);
         st.setFromY(.3);
         st.setToX(1.15);
         st.setToY(1.15);
         st.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 0.1));
 
-        ScaleTransition st2 = new ScaleTransition(Duration.millis(100), tile);
+        ScaleTransition st2 = new ScaleTransition(Duration.millis(150), tile);
         st2.setFromX(1.15);
         st2.setFromY(1.15);
         st2.setToX(1);
