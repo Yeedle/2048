@@ -94,6 +94,12 @@
 
 .game-over-screen {
     -fx-font-size: 45px;
-    -fx-fill: #bbada0;
+    -fx-background-color: #EEE4DA;
+    -fx-opacity: 73%;
+}
 
+.game-over-label {
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+    -fx-font-family: sans-serif;
 }

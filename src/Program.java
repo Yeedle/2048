@@ -53,6 +53,7 @@ public class Program extends Application{
 
 
 
+
         window.setTitle("2048 | Java");
 
         window.setResizable(false);
