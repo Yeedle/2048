@@ -38,6 +38,7 @@ public class Slot extends AbstractTile {
         {
            int value = this.tile.getValue() ;
             tile = new Tile(value);
+
         }
       this.getChildren().add(tile);
     }

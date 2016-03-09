@@ -16,7 +16,7 @@ import java.util.Random;
 public class Board extends TilePane {
 
    // Model model = new Model();
-    TileAnimation ta;
+
 
     Tile[][] tileArray = new Tile[4][4];
  //   ObservableList<Node> tiles = this.getChildren();
@@ -95,57 +95,57 @@ public class Board extends TilePane {
 
 
     //the board handles the four basic moves in the game: up, down, left, and right
-    protected void movedUp() {
-        ta = new TileAnimation();
+    protected void movedUp()
+    {
 
         if ( Model.moveUp(tileArray))
             for (Tile[] row : tileArray)
                 for (Tile tile : row)
                     if (tile.getTransition() > 0) {
-                        ta.moveTile(tile, tile.getTransition(), Direction.UP);
+                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.UP);
                         tile.setTransition(0);
                     }
         System.out.println("finished adding all the transitions to pt");
         printBoard();
 
-        ta.playAnimations(tileArray);
+        TileAnimation.playAnimations();
 
     }
 
 
     protected void movedDown() {
 
-        ta = new TileAnimation();
+
 
         if ( Model.moveDown(tileArray))
             for (Tile[] row : tileArray)
                 for (Tile tile : row)
                     if (tile.getTransition() > 0) {
-                        ta.moveTile(tile, tile.getTransition(), Direction.DOWN);
+                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.DOWN);
                         tile.setTransition(0);
                     }
         System.out.println("finished adding all the transitions to pt");
         printBoard();
 
-        ta.playAnimations(tileArray);
+        TileAnimation.playAnimations();
 
     }
 
     protected void movedLeft() {
 
-        ta = new TileAnimation();
+
 
         if ( Model.moveLeft(tileArray))
          for (Tile[] row : tileArray)
             for (Tile tile : row)
                 if (tile.getTransition() > 0) {
-                    ta.moveTile(tile, tile.getTransition(), Direction.LEFT);
+                    TileAnimation.moveTile(tile, tile.getTransition(), Direction.LEFT);
                     tile.setTransition(0);
                 }
         System.out.println("finished adding all the transitions to pt");
         printBoard();
 
-        ta.playAnimations(tileArray);
+        TileAnimation.playAnimations();
 
 
 
@@ -168,19 +168,21 @@ public class Board extends TilePane {
 
     protected void movedRight() {
 
-        ta = new TileAnimation();
 
-        if ( Model.moveRight(tileArray))
-            for (Tile[] row : tileArray)
-                for (Tile tile : row)
+        if (Model.moveRight(tileArray))
+        {
+            for (Tile[] row : tileArray) {
+                for (Tile tile : row) {
                     if (tile.getTransition() > 0) {
-                        ta.moveTile(tile, tile.getTransition(), Direction.RIGHT);
+                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.RIGHT);
                         tile.setTransition(0);
                     }
-        System.out.println("finished adding all the transitions to pt");
+                }
+            }
+        }
         printBoard();
 
-        ta.playAnimations(tileArray);
+        TileAnimation.playAnimations();
 
     }
 
@@ -204,10 +206,9 @@ public class Board extends TilePane {
             emptySlots.get(0).newTileValue();
             checkIfOtherMoveAvailable();
         }
+
         addTilesToArray();
-        //System.out.println("");
-        //System.out.println("printing board after adding a tile");
-        //printBoard();
+
     }
 
     /**
@@ -215,11 +216,16 @@ public class Board extends TilePane {
      */
     private void checkIfOtherMoveAvailable() {
         //TODO: calculate if a move is possible, if not, call gameOver();
+        if (!Model.checkPossibleMerge(tileArray))
+        {
+            gameOver();
+        }
     }
 
 
     private void gameOver() {
         //TODO: handle game over
+        System.out.println("game over");
     }
 
     /**

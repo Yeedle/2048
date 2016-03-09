@@ -29,7 +29,7 @@ public class Tile extends AbstractTile {
       //  updateValueLabel();
         this.getChildren().add(valueLabel);
 
-        TileAnimation.animateTileCreation(this);
+    //    TileAnimation.animateTileCreation(this);
 
     }
 
@@ -45,7 +45,7 @@ public class Tile extends AbstractTile {
         //building the Tile's graphical components
         this.getChildren().add(valueLabel);
 
-     //   TileAnimation.animateTileCreation(this);
+        TileAnimation.animateTileValueChanging(this);
     }
 
 

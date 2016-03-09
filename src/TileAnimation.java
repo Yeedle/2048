@@ -1,7 +1,4 @@
-import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -13,7 +10,7 @@ import javafx.util.Duration;
  */
 public class TileAnimation {
 
-    private  ParallelTransition pt = new ParallelTransition();
+    private static ParallelTransition pt = new ParallelTransition();
 
     /**
      * moveTile calculates the pixels to be moved, then calls the addToTransitions method
@@ -21,7 +18,7 @@ public class TileAnimation {
      * @param numberOfTilesToMove
      * @param direction
      */
-    public void moveTile(Tile tile, int numberOfTilesToMove, Direction direction){
+    public static void moveTile(Tile tile, int numberOfTilesToMove, Direction direction){
 
         // if it gets moved in the negative direction, we add a negative sign
         if (direction.equals(Direction.UP) || direction.equals(Direction.LEFT))
@@ -40,7 +37,7 @@ public class TileAnimation {
      * @param numberOfTilesToMove negative if they are going down or left
      * @return the amount of pixels to move the tile
      */
-    protected  double calculatePixelsBasedOn(int numberOfTilesToMove) {
+    protected static double calculatePixelsBasedOn(int numberOfTilesToMove) {
         return (numberOfTilesToMove * Tile.WIDTH) + (numberOfTilesToMove * 15); // 15 is the number of pixels between each tile (padding + gaps)
         //todo figure out how to get the padding between each tile programmatically
     }
@@ -51,7 +48,7 @@ public class TileAnimation {
      * @param pixels
      * @param direction
      */
-    private  void addToTransitionsList(Tile tile, double pixels, Direction direction) {
+    private static void addToTransitionsList(Tile tile, double pixels, Direction direction) {
 
         TranslateTransition t = new TranslateTransition(Duration.millis(200), tile);
         if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN))
@@ -65,7 +62,8 @@ public class TileAnimation {
     /**
      * plays the parallelTransition for all the TranslateTransitions accumulated in pt
      */
-    public  boolean playAnimations(Tile[][] tiles){
+    public static boolean playAnimations()//Tile[][] tiles)
+    {
         if (pt.getChildren().size() == 0)
             return false;
         else {
@@ -75,7 +73,7 @@ public class TileAnimation {
         }
     }
 
-    public void finishedAnimation()
+    public static void finishedAnimation()
     {
         //  for (Tile[] row : tiles)
         //    for (Tile tile : row)
@@ -112,6 +110,24 @@ public class TileAnimation {
         st.setToX(1);
         st.setToY(1);
         st.play();
+    }
+
+    public static void animateTileValueChanging(Tile tile) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(500), tile);
+        st.setFromX(.3);
+        st.setFromY(.3);
+        st.setToX(1.15);
+        st.setToY(1.15);
+
+        ScaleTransition st2 = new ScaleTransition(Duration.millis(250), tile);
+        st2.setFromX(1.15);
+        st2.setFromY(1.15);
+        st2.setToX(1);
+        st2.setToY(1);
+
+        SequentialTransition seqT = new SequentialTransition();
+        seqT.getChildren().addAll(st, st2);
+        seqT.play();
     }
 
 }
