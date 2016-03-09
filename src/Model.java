@@ -183,10 +183,12 @@ public class Model {
 
     //checks if there are any possible merges on the board - horizontally and vertically
     static boolean checkPossibleMerge(Tile[][] logicBoard) {
+        boolean check = false;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
                 if (logicBoard[i][j].getValue() == logicBoard[i][j + 1].getValue()) {
-                    return true;
+                    check = true;
+                    System.out.println(check);
                 }
             }
         }
@@ -194,11 +196,12 @@ public class Model {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
                 if (logicBoard[j][i].getValue() == logicBoard[j + 1][i].getValue()) {
-                    return true;
+                    check = true;
+                    System.out.println(check);
                 }
             }
         }
-        return false;
+        return check;
     }
 
     //rotate array 90 degrees clockwise
