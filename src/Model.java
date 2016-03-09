@@ -64,62 +64,102 @@ public class Model {
         }
     }
 
-    //************methods to handle moves left**************//
 
     static boolean moveLeft(Tile[][] logicBoard) {
-        boolean shifted = shiftBoardLeft(logicBoard);
+        prntBoard(logicBoard);
+        boolean shifted = shiftBoard(logicBoard);
+        prntBoard(logicBoard);
         return shifted;
     }
 
+    static boolean moveDown(Tile[][] logicBoard)
+    {
+        boolean shifted;
+        logicBoard = rotateLogicBoard(logicBoard);
+        shifted = shiftBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        return shifted;
+    }
+
+    static boolean moveRight(Tile[][] logicBoard)
+    {
+        boolean shifted;
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        shifted = shiftBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        return shifted;
+    }
+
+    static boolean moveUp(Tile[][] logicBoard)
+    {
+        boolean shifted;
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        shifted = shiftBoard(logicBoard);
+        logicBoard = rotateLogicBoard(logicBoard);
+        return shifted;
+    }
+
+
+
     // call shiftRaw() for each row in the board
-    static boolean shiftBoardLeft(Tile[][] board) {
+    static boolean shiftBoard(Tile[][] board) {
         boolean boardShifted = false;
         for (Tile[] row : board) {
-            if(mergeRowLeft(row)){
+            if(mergeRow(row)){
                 boardShifted = true;
             }
         }
         return boardShifted;
     }
 
-    // merge similar values
-    static boolean mergeRowLeft(Tile[] row) {
-        boolean merged = shiftZerosLeft(row);
-        for (int i = 0; i < row.length - 1; i++) {
-            if (row[i].getValue() == row[i+1].getValue() && (row[i].getValue() != 0)) {
-                row[i].setValue(row[i].getValue() + row[i+1].getValue());
-                row[i+1].setTransition(row[i+1].getTransition() + 1);
-                row[i+1].setValue(0);
-                merged = true;
+    // merge similar values and shift to the respective wall
+    static boolean mergeRow(Tile[] row) {
+        boolean merged = false;
+        int targetPosition = -1, stop = 0;
+        for (int i = 1; i < row.length; i++) {
+            if (row[i].getValue() != 0) {
+                for (int j = i - 1; j >= stop; j--) {
+                    if (row[j].getValue() == 0) {
+                        if (j == 0 || j == stop) {
+                            targetPosition = j;
+                            stop = j;
+                            break;
+                        }else {
+                            continue;
+                        }
+                    } else {
+                        if (row[j].getValue() == row[i].getValue()) {
+                            targetPosition = j;
+                            stop = j+1;
+                            break;
+                        } else {
+                            targetPosition = j + 1;
+                            stop = targetPosition;
+                            break;
+                        }
+                    }
+                }
+                if (targetPosition != i && targetPosition != -1) {
+                    row[targetPosition].setValue(row[i].getValue() + row[targetPosition].getValue());
+                    row[i].setTransition(row[i].getTransition() + Math.abs(targetPosition - i));
+                    row[i].setValue(0);
+                    targetPosition = -1;
+                    merged = true;
+                }
             }
-            shiftZerosLeft(row);
         }
         return merged;
     }
 
-    // shifts 0s to the opposite direction
-    static boolean shiftZerosLeft(Tile[] row) {
-        boolean shifted = false;
-        for (int i = 0; i < row.length; i++) {
-            if (row[i].getValue() == 0) {
-                for (int j = i + 1; j < row.length; j++) {
-                    if (row[j].getValue() != 0) {
-                        Tile tempTile = row[i];
-                        row[i] = row[j];
-                        row[i].setTransition(row[i].getTransition() + Math.abs(j - i));
-                        row[j] = tempTile;
-                        break;
-                    }
-                }
-                shifted = true;
-            }
-        }
-        return shifted;
-    }
-
     //************methods to handle moves down**************//
 
-    static boolean moveDown(Tile[][] logicBoard)
+    /*static boolean moveDown(Tile[][] logicBoard)
     {
         return shiftBoardDown(logicBoard);
     }
@@ -172,11 +212,11 @@ public class Model {
             }
         }
         return shifted;
-    }
+    }*/
 
     //************methods to handle moves right**************//
 
-    static  boolean moveRight(Tile[][] logicBoard)
+   /* static  boolean moveRight(Tile[][] logicBoard)
     {
         return shiftBoardDown(logicBoard);
     }
@@ -231,7 +271,7 @@ public class Model {
         return shifted;
     }
 
-    //************methods to handle moves up**************//
+    /*//************methods to handle moves up**************//*/
 
     static boolean moveUp(Tile[][] logicBoard)
     {
@@ -288,8 +328,8 @@ public class Model {
         return shifted;
     }
 
-    //**************************//
-
+    /*//**************************//*/
+*/
     //rotate array 90 degrees clockwise
     static Tile[][] rotateLogicBoard(Tile[][] logicBoard){
         int i = board.length;
@@ -327,6 +367,31 @@ public class Model {
                 }
             }
         }
+/*
+        // populate the board with random 2s and 4s for testing purposes
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (rand.nextDouble() < .2) {
+                    board[i][j] = new Tile();
+                    board[i][j].setValue(0);
+                }
+                else if(rand.nextDouble() < .4){
+                    board[i][j] = new Tile();
+                    board[i][j].setValue(4);
+                }
+                else if (rand.nextDouble() < 1){
+                    board[i][j] = new Tile();
+                    board[i][j].setValue(2);
+
+                }
+            }
+        }
+
+
+        prntBoard(board);
+        moveLeft(board);
+
+        prntBoard(board);*/
 
     }
 }
