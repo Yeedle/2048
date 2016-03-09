@@ -65,6 +65,32 @@ public class Model {
     }
 
 
+    static boolean move(Tile[][] logicBoard, Direction direction)
+    {
+        boolean shifted;
+        switch(direction)
+        {
+
+            case DOWN:
+                shifted= moveDown(logicBoard);
+                break;
+            case UP:
+                shifted = moveUp(logicBoard);
+                break;
+            case LEFT:
+                shifted= moveLeft(logicBoard);
+                break;
+            case RIGHT:
+                shifted = moveRight(logicBoard);
+                break;
+            default:
+                shifted = false;
+                break;
+        }
+        return shifted;
+    }
+
+
     static boolean moveLeft(Tile[][] logicBoard) {
         System.out.println("Before move:");
         prntBoard(logicBoard);

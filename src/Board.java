@@ -15,22 +15,16 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-   // Model model = new Model();
-
 
     Tile[][] tileArray = new Tile[4][4];
- //   ObservableList<Node> tiles = this.getChildren();
 
     // constructor builds graphical componentes
-    //TODO: perphps this class can be split up into two classes (inheriting one another?), one for the logic and one for the graphics
     public Board()
     {
         addSlots();
         this.getStyleClass().add("board");
-       initializeBoard();
-       addTilesToArray();
-
-
+        initializeBoard();
+        addTilesToArray();
     }
 
     /**
@@ -58,7 +52,6 @@ public class Board extends TilePane {
             int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
                 tileArray[row][i%4] = tile;
         }
-
     }
 
 
@@ -90,103 +83,25 @@ public class Board extends TilePane {
         for (int i = 0; i < 2; i++) {
             addNewTile();
         }
-
     }
 
-
-    //the board handles the four basic moves in the game: up, down, left, and right
-    protected void movedUp()
-    {
-
-        if ( Model.moveUp(tileArray))
-            for (Tile[] row : tileArray)
-                for (Tile tile : row)
-                    if (tile.getTransition() > 0) {
-                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.UP);
-                        tile.setTransition(0);
-                    }
-        System.out.println("finished adding all the transitions to pt");
-        printBoard();
-
-        TileAnimation.playAnimations();
-
-    }
-
-
-    protected void movedDown() {
-
-
-
-        if ( Model.moveDown(tileArray))
-            for (Tile[] row : tileArray)
-                for (Tile tile : row)
-                    if (tile.getTransition() > 0) {
-                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.DOWN);
-                        tile.setTransition(0);
-                    }
-        System.out.println("finished adding all the transitions to pt");
-        printBoard();
-
-        TileAnimation.playAnimations();
-
-    }
-
-    protected void movedLeft() {
-
-
-
-        if ( Model.moveLeft(tileArray))
-         for (Tile[] row : tileArray)
-            for (Tile tile : row)
-                if (tile.getTransition() > 0) {
-                    TileAnimation.moveTile(tile, tile.getTransition(), Direction.LEFT);
-                    tile.setTransition(0);
-                }
-        System.out.println("finished adding all the transitions to pt");
-        printBoard();
-
-        TileAnimation.playAnimations();
-
-
-
-//      if (!ta.playAnimations()) {
-            //after move is over, generate new tile and place in on board
-           // addNewTile();
-  //    }
-    }
-    protected void printBoard() {
-        System.out.println("");
-        for (Tile[] row :tileArray)
-        {
-            for (Tile j : row)
-            {
-                System.out.print("["+ j.getValue() +"] " + j.getTransition() +" | ");
-            }
-            System.out.println("");
-        }
-    }
 
     /**
-     * handles right move. Sends the tileArray to the model. If there are transitions,
-     * it loops through the array, finds the transitions, and adds it to the TileAnimation transition
+     * handles all moves. Sends the tileArray to the model, plus the direction. If the model returns true
+     * it loops through the array of tiles, finds the transitions, and adds them to the TileAnimation transition
      * array. Then, it calls the playAnimations method
      */
-    protected void movedRight()
+    protected void moved(Direction direction)
     {
-        if (Model.moveRight(tileArray))
-        {
-            for (Tile[] row : tileArray) {
-                for (Tile tile : row) {
+        if ( Model.move(tileArray, direction))
+            for (Tile[] row : tileArray)
+                for (Tile tile : row)
                     if (tile.getTransition() > 0) {
-                        TileAnimation.moveTile(tile, tile.getTransition(), Direction.RIGHT);
+                        TileAnimation.moveTile(tile, tile.getTransition(), direction);
                         tile.setTransition(0);
                     }
-                }
-            }
-        }
 
         TileAnimation.playAnimations();
-
     }
 
     /**
@@ -212,7 +127,6 @@ public class Board extends TilePane {
 
         // rebuild array model
         addTilesToArray();
-
     }
 
     /**
@@ -232,24 +146,6 @@ public class Board extends TilePane {
         System.out.println("game over");
     }
 
-    /**
-     *
-     * @return a list of the Slot children without a Tile in them
-     */
-   /* private ObservableList<Slot> getSlotsWithEmptyTiles() {
-
-
-       ObservableList<Slot> allSlots = getAllSlots();
-
-        for (int i = 0; i < allSlots.size(); i++){
-            if (allSlots.get(i).containsTile()){
-                allSlots.remove(i--);
-            }
-
-        }
-
-        return allSlots;
-    }*/
 
     private ObservableList<Slot> getSlotsWithEmptyTiles() {
 
@@ -271,7 +167,6 @@ public class Board extends TilePane {
      * Gets all the nodes of the board cast them into Slots and returns them as an ObservableList
      * @return all the Slot nodes of the board
      */
-
     private ObservableList<Slot> getAllSlots()
     {
         ObservableList<Slot> allSlots = FXCollections.observableArrayList();
@@ -285,16 +180,16 @@ public class Board extends TilePane {
     public void moved(KeyEvent ke) {
         switch (ke.getCode()) {
             case UP:
-                movedUp();
+                moved(Direction.UP);
                 break;
             case DOWN:
-                movedDown();
+                moved(Direction.DOWN);
                 break;
             case LEFT:
-                movedLeft();
+                moved(Direction.LEFT);
                 break;
             case RIGHT:
-                movedRight();
+                moved(Direction.RIGHT);
                 break;
             default:
                 break;
@@ -304,8 +199,5 @@ public class Board extends TilePane {
     public Tile[][] getTileArray() {
         return tileArray;
     }
-
-
-    //TODO: We need to figure out how to keep track of spaces not occupied by tiles.
 
 }

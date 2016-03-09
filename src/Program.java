@@ -36,23 +36,17 @@ public class Program extends Application{
 
         scene.setOnKeyPressed(ke -> board.moved(ke));
 
-        board.setOnSwipeUp(se -> board.movedUp());
-        board.setOnSwipeDown(se -> board.movedDown());
-        board.setOnSwipeLeft(se -> board.movedLeft());
-        board.setOnSwipeRight(se -> board.movedRight());
+        board.setOnSwipeUp(se -> board.moved(Direction.UP));
+        board.setOnSwipeDown(se -> board.moved(Direction.DOWN));
+        board.setOnSwipeLeft(se -> board.moved(Direction.LEFT));
+        board.setOnSwipeRight(se -> board.moved(Direction.RIGHT));
 
 
-        board.setOnMouseClicked(e -> {
-            Node node = (Node)e.getTarget();
-            Tile tile = (Tile)node.getParent();
-            Slot slot = (Slot)tile.getParent();
-            System.out.println(slot.name);
-        });
 
 
         window.setTitle("2048 | Java");
 
-        window.setResizable(true);
+        window.setResizable(false);
 
         window.show();
     }
