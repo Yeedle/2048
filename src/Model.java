@@ -161,6 +161,26 @@ public class Model {
         return merged;
     }
 
+    //checks if there are any possible merges on the board - horizontally and vertically
+    static boolean checkPossibleMerge(Tile[][] logicBoard) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (logicBoard[i][j].getValue() == logicBoard[i][j+1].getValue()) {
+                    return true;
+                }
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (logicBoard[j][i].getValue() == logicBoard[j+1][i].getValue()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     //************methods to handle moves down**************//
 
     /*static boolean moveDown(Tile[][] logicBoard)
