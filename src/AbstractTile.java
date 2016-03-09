@@ -30,7 +30,7 @@ import javafx.scene.shape.Rectangle;
      * gets value of tile. 0 if tile is not an instance of Tile
      * @return the value of the tile. 0 if the tile is not an instance of Tile
      */
-    public int getValue(){
+   /* public int getValue(){
         if (this instanceof Slot)
             return 0;
         else {
@@ -38,5 +38,5 @@ import javafx.scene.shape.Rectangle;
             return tile.getValue();
         }
     }
-
+*/
 }

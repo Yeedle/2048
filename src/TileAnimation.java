@@ -72,9 +72,9 @@ public class TileAnimation {
             pt.play();
             pt.setOnFinished(e -> {
 
-               // for (Tile[] row : tiles)
-                 //   for (Tile tile : row)
-                   //     tile.updateValueLabel();
+              //  for (Tile[] row : tiles)
+                //    for (Tile tile : row)
+                  //     tile.updateValueLabel();
 
                 Board board = new Board();
                for (Animation animation : pt.getChildren()) {

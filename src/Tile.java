@@ -24,8 +24,8 @@ public class Tile extends AbstractTile {
         value = 0;
 
         this.valueLabel = new Label();
-        valueLabel.getStyleClass().add("tile-label");
-        valueLabel.setText(Integer.toString(value));
+       valueLabel.getStyleClass().add("tile-label");
+        //valueLabel.setText(Integer.toString(value));
       //  updateValueLabel();
         this.getChildren().add(valueLabel);
 
@@ -58,7 +58,7 @@ public class Tile extends AbstractTile {
     public void setValue(int value) {
         this.value = value;
        this.valueLabel.setText(Integer.toString(value));
-        TileAnimation.animateTileCreation(this);
+      //  TileAnimation.animateTileCreation(this);
     }
 
    // public void updateValueLabel(){

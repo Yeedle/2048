@@ -87,7 +87,7 @@ public class Board extends TilePane {
     public void initializeBoard() {
         // TODO: 2/16/2016 empty the board when initializing after a game over or clicking the new game button
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             addNewTile();
         }
 

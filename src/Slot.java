@@ -23,10 +23,19 @@ public class Slot extends AbstractTile {
 
     public void newTile()
     {
+
         this.getChildren().remove(tile);
         System.out.println("tile was removed");
-        tile = new Tile();
-       this.getChildren().add(tile);
+        if (this.tile.getValue() == 0)
+        {
+            tile = new Tile();
+        }
+        else
+        {
+           int value = this.tile.getValue() ;
+            tile = new Tile(value);
+        }
+      this.getChildren().add(tile);
     }
 
     /**
