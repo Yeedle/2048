@@ -76,11 +76,9 @@ public class TileAnimation {
 
     public static void finishedAnimation()
     {
-
-
-
         Board board = new Board();
-        for (Animation animation : pt.getChildren()) {
+        for (Animation animation : pt.getChildren())
+        {
             TranslateTransition t = (TranslateTransition) animation;
             Node node = t.getNode();
             Tile tile = (Tile) node;

@@ -2,7 +2,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
- * A template for all sorts of Tiles
+ * A template for all sorts of Tiles and Slots
  * Created by Modi on 2/13/2016.
  */
     public abstract class AbstractTile extends StackPane{
@@ -25,18 +25,4 @@ import javafx.scene.shape.Rectangle;
         this.getChildren().addAll(square);
     }
 
-    //TODO: Get rid of this getValue method. Slots won't have any value, and will only serve as containers for tiles
-    /**
-     * gets value of tile. 0 if tile is not an instance of Tile
-     * @return the value of the tile. 0 if the tile is not an instance of Tile
-     */
-   /* public int getValue(){
-        if (this instanceof Slot)
-            return 0;
-        else {
-            Tile tile = (Tile)this;
-            return tile.getValue();
-        }
-    }
-*/
 }

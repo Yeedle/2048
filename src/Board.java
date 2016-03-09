@@ -15,16 +15,18 @@ import java.util.Random;
  */
 public class Board extends TilePane {
 
-
-    Tile[][] tileArray = new Tile[4][4];
+    final int ROWS = 4;
+    final int COLUMNS = 4;
+    Tile[][] tileArray = new Tile[ROWS][COLUMNS];
 
     // constructor builds graphical componentes
     public Board()
     {
         addSlots();
+
         this.getStyleClass().add("board");
+
         initializeBoard();
-        addTilesToArray();
     }
 
     /**
@@ -35,10 +37,17 @@ public class Board extends TilePane {
         final int NUM_OF_TILES = 16;
 
         for (int i = 0; i < NUM_OF_TILES; i++) {
-            this.addSlot(new Slot());
+            addSlot(new Slot());
         }
     }
 
+    public void initializeBoard() {
+        // TODO: 2/16/2016 empty the board when initializing after a game over or clicking the new game button
+
+        for (int i = 0; i < 2; i++) {
+            addNewTile();
+        }
+    }
 
     /**
      * adds all the nodes from the board into a 2D array for easy traversal and comparison
@@ -46,7 +55,8 @@ public class Board extends TilePane {
     private void addTilesToArray ()
     {
         ObservableList<Slot> slots = getAllSlots();
-        for (int i = 0; i < 16; i++) {
+
+        for (int i = 0; i < slots.size(); i++) {
             Slot slot = slots.get(i);
             Tile tile = slot.getTile();
             int row = i<4? 0 : i<8? 1 : i<12? 2 : 3; //is i<4? then row =0: else, is i<8? then row=1: else ...
@@ -77,13 +87,7 @@ public class Board extends TilePane {
         currentSlot.add(tile);
     }
 
-    public void initializeBoard() {
-        // TODO: 2/16/2016 empty the board when initializing after a game over or clicking the new game button
 
-        for (int i = 0; i < 2; i++) {
-            addNewTile();
-        }
-    }
 
 
     /**

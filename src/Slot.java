@@ -1,14 +1,11 @@
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
 
 /**
  * Created by Modi on 2/13/2016.
  */
 public class Slot extends AbstractTile {
 
-    public static int counter = 1;
     private Tile tile = new Tile();
-    String name = "Slot" + counter++;
 
     /**
      * Constructor
@@ -27,18 +24,15 @@ public class Slot extends AbstractTile {
      */
     public void newTile()
     {
-
         this.getChildren().remove(tile);
-        System.out.println("tile was removed");
-        if (this.tile.getValue() == 0)
+
+        if (tileValue() == 0)
         {
             tile = new Tile();
         }
         else
         {
-           int value = this.tile.getValue() ;
-            tile = new Tile(value);
-
+            tile = new Tile(tileValue());
         }
       this.getChildren().add(tile);
     }

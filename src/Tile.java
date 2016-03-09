@@ -14,17 +14,7 @@ public class Tile extends AbstractTile {
     private Label valueLabel;
     boolean isCombination;
 
-    public boolean isCombination(){
-        return isCombination;
-    }
 
-    public void wasCombinated(){
-        this.isCombination = true;
-    }
-
-    public void resetIsCombination(){
-        this.isCombination = false;
-    }
 
     /**
      * Used to construct empty tiles at the beginninf of the game
@@ -36,14 +26,9 @@ public class Tile extends AbstractTile {
         value = 0;
 
         this.valueLabel = new Label();
-       valueLabel.getStyleClass().addAll("tile-label", "tile-label-black", "tile-label-one-digit");
+        valueLabel.getStyleClass().addAll("tile-label", "tile-label-black", "tile-label-one-digit");
 
-        //valueLabel.setText(Integer.toString(value));
-      //  updateValueLabel();
         this.getChildren().add(valueLabel);
-
-    //    TileAnimation.animateTileCreation(this);
-
     }
 
 
@@ -58,12 +43,10 @@ public class Tile extends AbstractTile {
         valueLabel.setText(Integer.toString(value));
 
 
-        String color = "black";
-        if (value > 4)
-        {
-            color = "white";
-        }
+        String color = value > 4? "white" : "black";
+
         String labelTextColorStyleClass = "tile-label-" + color;
+
         int numOfDigitsInValue = String.valueOf(value).length();
         String labelTextSizeStyleClass = "tile-label-" + Integer.toString(numOfDigitsInValue);
 
@@ -72,10 +55,19 @@ public class Tile extends AbstractTile {
         //building the Tile's graphical components
         this.getChildren().add(valueLabel);
 
-      //  TileAnimation.animateTileValueChanging(this);
     }
 
+    public boolean isCombination(){
+        return isCombination;
+    }
 
+    public void wasCombinated(){
+        this.isCombination = true;
+    }
+
+    public void resetIsCombination(){
+        this.isCombination = false;
+    }
 
 
     public int getValue() {
