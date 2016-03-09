@@ -70,35 +70,36 @@ public class TileAnimation {
             return false;
         else {
             pt.play();
-            pt.setOnFinished(e -> {
-
-              //  for (Tile[] row : tiles)
-                //    for (Tile tile : row)
-                  //     tile.updateValueLabel();
-
-                Board board = new Board();
-               for (Animation animation : pt.getChildren()) {
-                    TranslateTransition t = (TranslateTransition) animation;
-                    Node node = t.getNode();
-                    Tile tile = (Tile) node;
-                    Slot slot = (Slot) tile.getParent();
-
-                   slot.newTile();
-                    board = (Board) slot.getParent();
-                }
-
-                pt.stop();
-                pt.getChildren().clear();
-
-
-                board.addNewTile();
-                board.printBoard();
-
-            });
+            pt.setOnFinished(e -> finishedAnimation());
             return true;
         }
     }
 
+    public void finishedAnimation()
+    {
+        //  for (Tile[] row : tiles)
+        //    for (Tile tile : row)
+        //     tile.updateValueLabel();
+
+        Board board = new Board();
+        for (Animation animation : pt.getChildren()) {
+            TranslateTransition t = (TranslateTransition) animation;
+            Node node = t.getNode();
+            Tile tile = (Tile) node;
+            Slot slot = (Slot) tile.getParent();
+
+            slot.newTile();
+            board = (Board) slot.getParent();
+        }
+
+        pt.stop();
+        pt.getChildren().clear();
+
+
+        board.addNewTile();
+        board.printBoard();
+
+    }
 
     /**
      * Animates the addition of tiles to the board
