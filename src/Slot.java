@@ -21,6 +21,10 @@ public class Slot extends AbstractTile {
         this.getChildren().add(tile);
     }
 
+
+    /*
+    * creates a new tile after a tile was moved.
+     */
     public void newTile()
     {
 

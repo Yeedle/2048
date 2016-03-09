@@ -99,9 +99,6 @@ public class TileAnimation {
         }
     }
 
-    public Animation.Status getAnimationStatus(){
-        return pt.getStatus();
-    }
 
     /**
      * Animates the addition of tiles to the board
