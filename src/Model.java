@@ -66,9 +66,13 @@ public class Model {
 
 
     static boolean moveLeft(Tile[][] logicBoard) {
+        System.out.println("Before move:");
         prntBoard(logicBoard);
+        System.out.println("");
         boolean shifted = shiftBoard(logicBoard);
+        System.out.println("After move:");
         prntBoard(logicBoard);
+        System.out.println("");
         return shifted;
     }
 

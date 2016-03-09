@@ -205,9 +205,9 @@ public class Board extends TilePane {
             checkIfOtherMoveAvailable();
         }
         addTilesToArray();
-        System.out.println("");
-        System.out.println("printing board after adding a tile");
-        printBoard();
+        //System.out.println("");
+        //System.out.println("printing board after adding a tile");
+        //printBoard();
     }
 
     /**
