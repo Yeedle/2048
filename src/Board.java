@@ -174,6 +174,9 @@ public class Board extends TilePane {
             case RIGHT:
                 moved(Direction.RIGHT);
                 break;
+            case O:
+                gameOver();
+                break;
             default:
                 break;
         }
@@ -192,7 +195,7 @@ public class Board extends TilePane {
                     tile.updateValueLabel();
                     if (tile.isCombination())
                     {
-
+                        score.addToScore(tile.getValue());
                         TileAnimation.popAnimation(tile);
                         tile.resetIsCombination();
                     }

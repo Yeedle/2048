@@ -22,6 +22,10 @@ public class Score {
         this.currentScore = currentScore;
     }
 
+    public void addToScore(int addition){
+        currentScore += addition;
+    }
+
     public Score() {
         currentScore = 0;
 
