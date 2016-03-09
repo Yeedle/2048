@@ -12,7 +12,19 @@ public class Tile extends AbstractTile {
    private int value;
     private int transition;
     private Label valueLabel;
+    boolean isCombination;
 
+    public boolean isCombination(){
+        return isCombination;
+    }
+
+    public void wasCombinated(){
+        this.isCombination = true;
+    }
+
+    public void resetIsCombination(){
+        this.isCombination = false;
+    }
 
     /**
      * Used to construct empty tiles at the beginninf of the game
@@ -24,7 +36,8 @@ public class Tile extends AbstractTile {
         value = 0;
 
         this.valueLabel = new Label();
-       valueLabel.getStyleClass().add("tile-label");
+       valueLabel.getStyleClass().addAll("tile-label", "tile-label-black", "tile-label-one-digit");
+
         //valueLabel.setText(Integer.toString(value));
       //  updateValueLabel();
         this.getChildren().add(valueLabel);
@@ -37,15 +50,29 @@ public class Tile extends AbstractTile {
     public Tile(int value)
     {
         super();
-        square.getStyleClass().add("tile-empty");
+
+        String styleClass = "tile-" + Integer.toString(value);
+        square.getStyleClass().add(styleClass);
         this.value = value;
         this.valueLabel = new Label();
         valueLabel.setText(Integer.toString(value));
-        valueLabel.getStyleClass().add("tile-label");
+
+
+        String color = "black";
+        if (value > 4)
+        {
+            color = "white";
+        }
+        String labelTextColorStyleClass = "tile-label-" + color;
+        int numOfDigitsInValue = String.valueOf(value).length();
+        String labelTextSizeStyleClass = "tile-label-" + Integer.toString(numOfDigitsInValue);
+
+        valueLabel.getStyleClass().addAll("tile-label", labelTextColorStyleClass, labelTextSizeStyleClass);
+
         //building the Tile's graphical components
         this.getChildren().add(valueLabel);
 
-        TileAnimation.animateTileValueChanging(this);
+      //  TileAnimation.animateTileValueChanging(this);
     }
 
 
@@ -57,13 +84,30 @@ public class Tile extends AbstractTile {
 
     public void setValue(int value) {
         this.value = value;
-       this.valueLabel.setText(Integer.toString(value));
-      //  TileAnimation.animateTileCreation(this);
+
     }
 
-   // public void updateValueLabel(){
-     //   this.valueLabel.setText(Integer.toString(this.value));
-    //}
+    public void updateValueLabel(){
+        String newStyleClass = "tile-" + Integer.toString(value);
+
+        square.getStyleClass().remove(1);
+        square.getStyleClass().add(newStyleClass);
+
+        valueLabel.getStyleClass().remove(1, 3);
+        String color = "black";
+        if (value > 4)
+        {
+            color = "white";
+        }
+        String labelTextColorStyleClass = "tile-label-" + color;
+        int numOfDigitsInValue = String.valueOf(value).length();
+        String labelTextSizeStyleClass = "tile-label-" + Integer.toString(numOfDigitsInValue);
+
+        valueLabel.getStyleClass().addAll("tile-label", labelTextColorStyleClass, labelTextSizeStyleClass);
+
+
+        this.valueLabel.setText(Integer.toString(this.value));
+    }
 
 
 
@@ -73,17 +117,17 @@ public class Tile extends AbstractTile {
         if(Math.random() < 0.9 ){
 
             square.getStyleClass().add("tile-2"); //adds a css class to the square
-            setValue(2);
+            this.value =2;
 
-            valueLabel.setText(Integer.toString(this.value));
+
        //     this.getChildren().add(valueLabel);
         }
         else{
             square.getStyleClass().add("tile-4"); //adds a css class to the square
-            setValue(4);
-            valueLabel.setText(Integer.toString(this.value));
-         //   this.getChildren().add(valueLabel);
+            this.value = 4;
+
         }
+        updateValueLabel();
     }
 
     public int getTransition() {
@@ -93,4 +137,6 @@ public class Tile extends AbstractTile {
     public void setTransition(int transition) {
         this.transition = transition;
     }
+
+
 }

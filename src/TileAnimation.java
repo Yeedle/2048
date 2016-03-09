@@ -50,7 +50,8 @@ public class TileAnimation {
      */
     private static void addToTransitionsList(Tile tile, double pixels, Direction direction) {
 
-        TranslateTransition t = new TranslateTransition(Duration.millis(200), tile);
+        TranslateTransition t = new TranslateTransition(Duration.millis(150), tile);
+        t.setInterpolator(Interpolator.EASE_IN);
         if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN))
             t.setByY(pixels);
         else
@@ -75,9 +76,8 @@ public class TileAnimation {
 
     public static void finishedAnimation()
     {
-        //  for (Tile[] row : tiles)
-        //    for (Tile tile : row)
-        //     tile.updateValueLabel();
+
+
 
         Board board = new Board();
         for (Animation animation : pt.getChildren()) {
@@ -87,6 +87,7 @@ public class TileAnimation {
             Slot slot = (Slot) tile.getParent();
 
             slot.newTile();
+
             board = (Board) slot.getParent();
         }
 
@@ -94,8 +95,22 @@ public class TileAnimation {
         pt.getChildren().clear();
 
 
+       for (Tile[] row : board.getTileArray())
+            for (Tile tile : row)
+            {
+                if (tile.getValue() !=0)
+                {
+                    tile.updateValueLabel();
+                    if (tile.isCombination())
+                    {
+
+                        TileAnimation.animateTileValueChanging(tile);
+                        tile.resetIsCombination();
+                    }
+                }
+            }
+
         board.addNewTile();
-        board.printBoard();
 
     }
 
@@ -104,26 +119,30 @@ public class TileAnimation {
      * @param tile to be animated
      */
     public static void animateTileCreation(Tile tile) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(500), tile);
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), tile);
         st.setFromX(.3);
         st.setFromY(.3);
         st.setToX(1);
         st.setToY(1);
+        st.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 0.1));
+        //st.setDelay(Duration.millis(100));
         st.play();
     }
 
     public static void animateTileValueChanging(Tile tile) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(500), tile);
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), tile);
         st.setFromX(.3);
         st.setFromY(.3);
         st.setToX(1.15);
         st.setToY(1.15);
+        st.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 0.1));
 
-        ScaleTransition st2 = new ScaleTransition(Duration.millis(250), tile);
+        ScaleTransition st2 = new ScaleTransition(Duration.millis(100), tile);
         st2.setFromX(1.15);
         st2.setFromY(1.15);
         st2.setToX(1);
         st2.setToY(1);
+        st2.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 0.1));
 
         SequentialTransition seqT = new SequentialTransition();
         seqT.getChildren().addAll(st, st2);

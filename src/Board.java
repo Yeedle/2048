@@ -166,9 +166,13 @@ public class Board extends TilePane {
         }
     }
 
-    protected void movedRight() {
-
-
+    /**
+     * handles right move. Sends the tileArray to the model. If there are transitions,
+     * it loops through the array, finds the transitions, and adds it to the TileAnimation transition
+     * array. Then, it calls the playAnimations method
+     */
+    protected void movedRight()
+    {
         if (Model.moveRight(tileArray))
         {
             for (Tile[] row : tileArray) {
@@ -180,7 +184,6 @@ public class Board extends TilePane {
                 }
             }
         }
-        printBoard();
 
         TileAnimation.playAnimations();
 
@@ -207,6 +210,7 @@ public class Board extends TilePane {
             checkIfOtherMoveAvailable();
         }
 
+        // rebuild array model
         addTilesToArray();
 
     }
@@ -214,8 +218,8 @@ public class Board extends TilePane {
     /**
      * checks if there are moves left. If there are none, calls gameOver.
      */
-    private void checkIfOtherMoveAvailable() {
-        //TODO: calculate if a move is possible, if not, call gameOver();
+    private void checkIfOtherMoveAvailable()
+    {
         if (!Model.checkPossibleMerge(tileArray))
         {
             gameOver();
@@ -295,6 +299,10 @@ public class Board extends TilePane {
             default:
                 break;
         }
+    }
+
+    public Tile[][] getTileArray() {
+        return tileArray;
     }
 
 

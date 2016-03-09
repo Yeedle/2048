@@ -150,6 +150,10 @@ public class Model {
                     }
                 }
                 if (targetPosition != i && targetPosition != -1) {
+                    if (row[targetPosition].getValue() != 0)
+                    {
+                        row[targetPosition].wasCombinated();
+                    }
                     row[targetPosition].setValue(row[i].getValue() + row[targetPosition].getValue());
                     row[i].setTransition(row[i].getTransition() + Math.abs(targetPosition - i));
                     row[i].setValue(0);
