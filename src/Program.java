@@ -1,8 +1,15 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -24,8 +31,10 @@ public class Program extends Application{
 
         Board board = new Board();
 
+        StackPane sp = new StackPane(board);
         Group root = new Group(); //root for all the children nodes to be added to the scene
-        root.getChildren().addAll(board);
+
+        root.getChildren().addAll(sp);
 
         final int WIDTH = 503;
         final int HEIGHT = 503;

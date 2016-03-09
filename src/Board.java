@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 
 import java.util.Random;
@@ -15,6 +16,7 @@ public class Board extends TilePane {
     final int ROWS = 4;
     final int COLUMNS = 4;
     Tile[][] tileArray = new Tile[ROWS][COLUMNS];
+    Score score = new Score();
 
 
     // constructor builds graphical componentes
@@ -154,8 +156,8 @@ public class Board extends TilePane {
 
 
     private void gameOver() {
-        //TODO: handle game over
-        System.out.println("game over");
+        StackPane sp = (StackPane)this.getParent();
+        sp.getChildren().add(new GameOverScreen(Integer.toString(score.getCurrentScore())));
     }
 
     public void moved(KeyEvent ke) {

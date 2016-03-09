@@ -91,3 +91,9 @@
     -fx-fill: #edc22e;
 
 }
+
+.game-over-screen {
+    -fx-font-size: 45px;
+    -fx-fill: #bbada0;
+
+}
